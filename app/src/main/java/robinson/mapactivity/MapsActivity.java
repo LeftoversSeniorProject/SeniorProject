@@ -68,7 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         public void onMapReady (GoogleMap googleMap){
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-            Toast.makeText(this,"setMapType",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"setMapType during set Map Type command",Toast.LENGTH_SHORT).show();
 
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
