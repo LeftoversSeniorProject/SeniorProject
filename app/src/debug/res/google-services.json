@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "998050636867",
+    "project_id": "default-demo-app-90913"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998050636867:android:27d689d63f1b7a06",
+        "android_client_info": {
+          "package_name": "com.google.samples.quickstart.signin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUNg4e5979RNmQJ82avjgQeeh-LiGfX90"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
