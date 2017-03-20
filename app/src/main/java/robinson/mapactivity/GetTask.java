@@ -1,14 +1,18 @@
 package robinson.mapactivity;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 
 /**˚
  * Created by gibl3t on 3/14/17.
@@ -17,16 +21,21 @@ import java.net.URL;
 class GetTask extends AsyncTask<Void, Void, String> {
 
     private Exception exception;
-    private TextView responseView;
     private String id;
+    private String testToast;
+    private Context context;
+    private User user;
 
-    public GetTask(TextView responseView, String id){
-        this.responseView = responseView;
-        this.id = id;
+    private Gson GSON = new GsonBuilder().create();
+
+    public GetTask(User user, String testToast, Context context){
+        this.user = user;
+        this.testToast = testToast;
+        this.context = context;
+        id = user.getId();
     }
 
     protected void onPreExecute(){
-        responseView.setText("");
     }
 
     protected String doInBackground(Void... urls){
@@ -59,6 +68,9 @@ class GetTask extends AsyncTask<Void, Void, String> {
             response = "THERE WAS AN ERROR";
         }
         Log.i("INFO", response);
-        responseView.setText(response);
+        user = GSON.fromJson(response, User.class);
+        testToast = response;
+        Toast.makeText(context, user.getLatitude().toString(), Toast.LENGTH_LONG).show();
+
     }
 }
