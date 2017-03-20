@@ -31,7 +31,7 @@ public class Help extends MapsActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        int z = 1;
+
 
         switch(v.getId()) {
 
