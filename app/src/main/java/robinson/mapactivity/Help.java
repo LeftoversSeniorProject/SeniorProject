@@ -17,6 +17,7 @@ public class Help extends MapsActivity implements View.OnClickListener {
 
     private Button btnClose;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,7 @@ public class Help extends MapsActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        int z = 0;
 
         switch(v.getId()) {
 
