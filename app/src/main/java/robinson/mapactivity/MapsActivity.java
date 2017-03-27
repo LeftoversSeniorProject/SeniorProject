@@ -46,7 +46,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //declare button variables
     private Button btnEndGame;
     private Button btnMarco;
-    private Button btnHelp;
+   // private Button btnHelp;
 
 
     Gson GSON = new GsonBuilder().create();
@@ -95,25 +95,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-        //on button click
-        public void onClick(View v){
-
-            switch (v.getId()) {
-
-                case R.id.help_button:
-                    Intent intentMain = new Intent(MapsActivity.this ,
-                            Help.class);
-                    MapsActivity.this.startActivity(intentMain);
-                    Log.i("Content "," Main layout ");
-                break;
-
-                case R.id.new_game_button:
-                    //to do write new game code
-                break;
-
-            }
-
-        }
 
 
     /**
