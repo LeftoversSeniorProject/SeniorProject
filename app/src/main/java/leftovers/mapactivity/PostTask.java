@@ -1,50 +1,57 @@
-package robinson.mapactivity;
+package leftovers.mapactivity;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
-/**˚
- * Created by gibl3t on 3/14/17.
+
+/**
+ * Created by gibl3t on 3/27/17.
  */
 
-class GetTask extends AsyncTask<Void, Void, String> {
+class PostTask extends AsyncTask<Void, Void, String> {
 
     private Exception exception;
     private String id;
-    private String testToast;
-    private Context context;
     private User user;
 
     private Gson GSON = new GsonBuilder().create();
 
-    public GetTask(User user, String testToast, Context context){
+    public PostTask(User user){
         this.user = user;
-        this.testToast = testToast;
-        this.context = context;
         id = user.getId();
     }
 
     protected void onPreExecute(){
+
     }
 
     protected String doInBackground(Void... urls){
-        //do validation here
 
         try{
-            URL url = new URL("http://10.35.18.240:4567/users/" + id);
+            URL url = new URL("http://10.35.19.212:4567/users");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             try{
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setDoOutput(true);
+
+                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(urlConnection.getOutputStream());
+                outputStreamWriter.write(GSON.toJson(user));
+                outputStreamWriter.flush();
+
+                int responseCode = urlConnection.getResponseCode();
+                System.out.println("Sending POST");
+                System.out.println("Response code: " + responseCode);
+                System.out.println("GSON USER: " + GSON.toJson(user));
+
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                 StringBuilder stringBuilder = new StringBuilder();
                 String line;
@@ -53,6 +60,7 @@ class GetTask extends AsyncTask<Void, Void, String> {
                 }
                 bufferedReader.close();
                 return stringBuilder.toString();
+
             }
             finally{
                 urlConnection.disconnect();
@@ -61,6 +69,7 @@ class GetTask extends AsyncTask<Void, Void, String> {
             Log.e("ERROR", e.getMessage(), e);
             return null;
         }
+
     }
 
     protected void onPostExecute(String response){
@@ -69,8 +78,7 @@ class GetTask extends AsyncTask<Void, Void, String> {
         }
         Log.i("INFO", response);
         user = GSON.fromJson(response, User.class);
-        testToast = response;
-        Toast.makeText(context, user.getLatitude().toString(), Toast.LENGTH_LONG).show();
-
+        System.out.println("Post Execute User ID = " + user.getId());
     }
 }
+

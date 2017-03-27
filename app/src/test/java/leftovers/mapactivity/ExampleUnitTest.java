@@ -1,4 +1,4 @@
-package robinson.mapactivity;
+package leftovers.mapactivity;
 
 import org.junit.Test;
 

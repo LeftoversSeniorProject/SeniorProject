@@ -1,4 +1,4 @@
-package robinson.mapactivity;
+package leftovers.mapactivity;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,4 +1,4 @@
-package robinson.mapactivity;
+package leftovers.mapactivity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -25,28 +27,42 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener{
+        LocationListener, View.OnClickListener {
 
 
+    //declare button variables
+    private Button btnEndGame;
+    private Button btnMarco;
+    private Button btnHelp;
 
+    Gson GSON = new GsonBuilder().create();
+    User user1;
+
+    //Google declarations
     private GoogleMap mMap;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
-    String id = "4";
-    String testToast = "initial";
-    User testUser = new User("4", 0.00, 0.00);
 
+    /**
+     * onCreate method - sets up map and google API
+     * sets button listener variables
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        Toast.makeText(this,"layout set",Toast.LENGTH_SHORT).show();
+
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
@@ -57,9 +73,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        new GetTask(testUser, testToast, this).execute();
 
-
+        //set Button Listeners
+        btnMarco = (Button) findViewById(R.id.marco_button);
+        btnMarco.setOnClickListener(this);
+        btnEndGame = (Button) findViewById(R.id.end_game_button);
+        btnEndGame.setOnClickListener(this);
+        Toast.makeText(this,"Set Button Listeners",Toast.LENGTH_SHORT).show();
     }
 
 
@@ -121,6 +141,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+    /**
+     * onClick checks which button has been clicked and
+     processes button instruction
+     * @param v
+     */
+    public void onClick(View v){
+
+        switch (v.getId()) {
+
+            case R.id.marco_button:
+                LatLng test = new LatLng(39.7100499, -75.1199791);
+                MarkerOptions testMarker = new MarkerOptions();
+                testMarker.position(test);
+                testMarker.title("Test User");
+                mMap.addMarker(testMarker);
+                break;
+
+            case R.id.end_game_button:
+                //to do write end game code
+                break;
+
+        }
+
+    }
+
+    /**
+     * onLocationChanged method- updates user's location
+     * when their location has been changed and
+     * updates pin marker
+     * @param location
+     */
     @Override
     public void onLocationChanged(Location location)
     {
@@ -130,10 +181,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
         //Place current location marker
-        //LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        testUser.setLatitude(39.7100499);
-        testUser.setLongitude(-75.1199791);
-        LatLng latLng = new LatLng(testUser.getLatitude(), testUser.getLongitude());
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title("Current Position");
@@ -142,14 +190,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
         //stop location updates
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
+
+        getPlayerLocation();
     }
 
+    /**
+     * checkLocationPermisson - checks permission from
+     * phone to get location
+     */
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
@@ -220,5 +274,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    public void getPlayerLocation(){
+
+        //new GetTask(user1, this).execute();
+        //user1 = GSON.fromJson("", User.class);
+        //Toast.makeText(this, user1.getLatitude().toString(), Toast.LENGTH_LONG).show();
     }
 }

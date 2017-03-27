@@ -1,4 +1,4 @@
-package robinson.mapactivity;
+package leftovers.mapactivity;
 
 /**
  * Created by gibl3t on 3/20/17.
