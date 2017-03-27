@@ -1,4 +1,4 @@
-package leftovers.mapactivity;
+package robinson.mapactivity;
 
 import android.os.AsyncTask;
 import android.util.Log;

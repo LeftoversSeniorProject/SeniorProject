@@ -1,4 +1,4 @@
-package leftovers.mapactivity;
+package robinson.mapactivity;
 
 import android.content.Context;
 import android.os.AsyncTask;
