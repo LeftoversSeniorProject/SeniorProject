@@ -1,6 +1,8 @@
 package robinson.mapactivity;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -10,8 +12,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -32,6 +37,7 @@ import com.google.gson.GsonBuilder;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
+
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener, View.OnClickListener {
@@ -42,10 +48,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Button btnMarco;
     private Button btnHelp;
 
+
     Gson GSON = new GsonBuilder().create();
     User user1;
 
     //Google declarations
+
+    private Button  btnNewGame;
+    private Button btnHelp;
+
     private GoogleMap mMap;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
@@ -74,13 +85,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
 
+
         //set Button Listeners
         btnMarco = (Button) findViewById(R.id.marco_button);
         btnMarco.setOnClickListener(this);
         btnEndGame = (Button) findViewById(R.id.end_game_button);
         btnEndGame.setOnClickListener(this);
         Toast.makeText(this,"Set Button Listeners",Toast.LENGTH_SHORT).show();
+
     }
+
+        //on button click
+        public void onClick(View v){
+
+            switch (v.getId()) {
+
+                case R.id.help_button:
+                    Intent intentMain = new Intent(MapsActivity.this ,
+                            Help.class);
+                    MapsActivity.this.startActivity(intentMain);
+                    Log.i("Content "," Main layout ");
+                break;
+
+                case R.id.new_game_button:
+                    //to do write new game code
+                break;
+
+            }
+
+        }
 
 
     /**
@@ -96,7 +129,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady (GoogleMap googleMap){
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+
         Toast.makeText(this,"setMapType",Toast.LENGTH_SHORT).show();
+
 
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -259,7 +294,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 } else {
 
                     // Permission denied, Disable the functionality that depends on this permission.
-                    Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "permission is denied", Toast.LENGTH_LONG).show();
                 }
                 return;
             }

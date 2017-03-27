@@ -2,8 +2,15 @@ package robinson.mapactivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.Toast;
+
+import static robinson.mapactivity.R.layout.activity_maps;
 
 /**
  * Created by Michael on 3/8/2017.
@@ -20,12 +27,13 @@ public class Help extends MapsActivity implements View.OnClickListener {
 
         btnClose = (Button) findViewById(R.id.close_button);
         btnClose.setOnClickListener(this);
+        Toast.makeText(this, "button set", Toast.LENGTH_LONG).show();
+
     }
 
     @Override
     public void onClick(View v) {
 
-        //get button clicked
         switch(v.getId()) {
 
             case R.id.close_button:
@@ -34,3 +42,4 @@ public class Help extends MapsActivity implements View.OnClickListener {
         }
     }
 }
+
