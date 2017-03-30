@@ -1,6 +1,8 @@
 package robinson.mapactivity;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -10,8 +12,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -32,6 +37,7 @@ import com.google.gson.GsonBuilder;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
+
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener, View.OnClickListener {
@@ -40,12 +46,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //declare button variables
     private Button btnEndGame;
     private Button btnMarco;
-    private Button btnTag;
+    private Button btnHelp;
 
     Gson GSON = new GsonBuilder().create();
-    User user1;
+    User hider = new User("4", 0.00, 0.00);
 
     //Google declarations
+
+    private Button  btnNewGame;
+    private Button btnHelp;
+
     private GoogleMap mMap;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
@@ -74,15 +84,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
 
+
         //set Button Listeners
         btnMarco = (Button) findViewById(R.id.marco_button);
         btnMarco.setOnClickListener(this);
-        btnTag = (Button) findViewById(R.id.tag_button);
-        btnTag.setOnClickListener(this);
         btnEndGame = (Button) findViewById(R.id.end_game_button);
         btnEndGame.setOnClickListener(this);
         Toast.makeText(this,"Set Button Listeners",Toast.LENGTH_SHORT).show();
+
     }
+
 
 
     /**
@@ -98,7 +109,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady (GoogleMap googleMap){
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+
         Toast.makeText(this,"setMapType",Toast.LENGTH_SHORT).show();
+
 
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -153,11 +166,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         switch (v.getId()) {
 
             case R.id.marco_button:
-                LatLng test = new LatLng(39.7100499, -75.1199791);
-                MarkerOptions testMarker = new MarkerOptions();
-                testMarker.position(test);
-                testMarker.title("Test User");
-                mMap.addMarker(testMarker);
+                getPlayerLocation();
                 break;
 
             case R.id.end_game_button:
@@ -166,18 +175,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
 
-    }
-
-    /**
-     * checkProximity will make sure player is
-     * close enough to opponent when tag button is pressed.
-     * @return
-     */
-    public boolean checkProximity(Location location){
-
-        //LatLng latlng = new LatLng(location.getLatitude(), mLastLocation.getLongitude());
-
-        return true;
     }
 
     /**
@@ -204,13 +201,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(19));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
         //stop location updates
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
 
+        getPlayerLocation();
     }
 
     /**
@@ -272,7 +270,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 } else {
 
                     // Permission denied, Disable the functionality that depends on this permission.
-                    Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "permission is denied", Toast.LENGTH_LONG).show();
                 }
                 return;
             }
@@ -291,9 +289,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void getPlayerLocation(){
 
+        new GetTask(hider).execute();
+        LatLng hiderLocation = new LatLng(hider.getLatitude(), hider.getLongitude());
+        MarkerOptions testMarker = new MarkerOptions();
+        testMarker.position(hiderLocation);
+        testMarker.title("Opponent");
+        mMap.addMarker(testMarker);
 
-        User testUser = new User("4", 00.0, 00.0);
-        Toast testToast = new Toast(this);
-        GetTask get = new GetTask(testUser, testToast, this).execute();
     }
 }
