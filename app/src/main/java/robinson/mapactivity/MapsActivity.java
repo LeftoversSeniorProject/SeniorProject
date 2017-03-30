@@ -50,7 +50,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     Gson GSON = new GsonBuilder().create();
-    User user1;
+    User hider = new User("4", 0.00, 0.00);
 
     //Google declarations
 
@@ -167,11 +167,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         switch (v.getId()) {
 
             case R.id.marco_button:
-                LatLng test = new LatLng(39.7100499, -75.1199791);
-                MarkerOptions testMarker = new MarkerOptions();
-                testMarker.position(test);
-                testMarker.title("Test User");
-                mMap.addMarker(testMarker);
+                getPlayerLocation();
                 break;
 
             case R.id.end_game_button:
@@ -294,8 +290,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void getPlayerLocation(){
 
-        //new GetTask(user1, this).execute();
-        //user1 = GSON.fromJson("", User.class);
-        //Toast.makeText(this, user1.getLatitude().toString(), Toast.LENGTH_LONG).show();
+        new GetTask(hider).execute();
+        LatLng hiderLocation = new LatLng(hider.getLatitude(), hider.getLongitude());
+        MarkerOptions testMarker = new MarkerOptions();
+        testMarker.position(hiderLocation);
+        testMarker.title("Opponent");
+        mMap.addMarker(testMarker);
+
     }
 }
