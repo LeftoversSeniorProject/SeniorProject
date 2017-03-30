@@ -10,6 +10,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -23,11 +26,15 @@ class GetTask extends AsyncTask<Void, Void, String> {
     private Exception exception;
     private String id;
     private User user;
+    private MarkerOptions marker;
+    private GoogleMap map;
 
     private Gson GSON = new GsonBuilder().create();
 
-    public GetTask(User user){
+    public GetTask(User user, MarkerOptions marker, GoogleMap map){
         this.user = user;
+        this.marker = marker;
+        this.map = map;
         id = user.getId();
     }
 
@@ -65,6 +72,11 @@ class GetTask extends AsyncTask<Void, Void, String> {
         }
         Log.i("INFO", response);
         user = GSON.fromJson(response, User.class);
+        LatLng hiderLocation = new LatLng(user.getLatitude(), user.getLongitude());
+        MarkerOptions testMarker = new MarkerOptions();
+        testMarker.position(hiderLocation);
+        testMarker.title("Opponent");
+        map.addMarker(testMarker);
 
     }
 }

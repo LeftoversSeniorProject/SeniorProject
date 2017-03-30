@@ -290,12 +290,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void getPlayerLocation(){
 
-        new GetTask(hider).execute();
-        LatLng hiderLocation = new LatLng(hider.getLatitude(), hider.getLongitude());
-        MarkerOptions testMarker = new MarkerOptions();
-        testMarker.position(hiderLocation);
-        testMarker.title("Opponent");
-        mMap.addMarker(testMarker);
+        MarkerOptions hiderMarker = new MarkerOptions();
+        new GetTask(hider, hiderMarker, mMap).execute();
+        
 
     }
 }
