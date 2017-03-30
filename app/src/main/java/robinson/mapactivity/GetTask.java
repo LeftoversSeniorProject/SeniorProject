@@ -1,17 +1,15 @@
 package robinson.mapactivity;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 
 /**˚
@@ -38,7 +36,7 @@ class GetTask extends AsyncTask<Void, Void, String> {
         //do validation here
 
         try{
-            URL url = new URL("http://10.35.18.240:4567/users/" + id);
+            URL url = new URL("http://10.35.16.88:4567/users/" + id);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             try{
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
