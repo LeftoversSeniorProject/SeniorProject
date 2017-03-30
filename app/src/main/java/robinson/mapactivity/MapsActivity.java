@@ -40,7 +40,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //declare button variables
     private Button btnEndGame;
     private Button btnMarco;
-    private Button btnHelp;
+    private Button btnTag;
 
     Gson GSON = new GsonBuilder().create();
     User user1;
@@ -77,6 +77,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //set Button Listeners
         btnMarco = (Button) findViewById(R.id.marco_button);
         btnMarco.setOnClickListener(this);
+        btnTag = (Button) findViewById(R.id.tag_button);
+        btnTag.setOnClickListener(this);
         btnEndGame = (Button) findViewById(R.id.end_game_button);
         btnEndGame.setOnClickListener(this);
         Toast.makeText(this,"Set Button Listeners",Toast.LENGTH_SHORT).show();
@@ -167,6 +169,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     /**
+     * checkProximity will make sure player is
+     * close enough to opponent when tag button is pressed.
+     * @return
+     */
+    public boolean checkProximity(Location location){
+
+        //LatLng latlng = new LatLng(location.getLatitude(), mLastLocation.getLongitude());
+
+        return true;
+    }
+
+    /**
      * onLocationChanged method- updates user's location
      * when their location has been changed and
      * updates pin marker
@@ -190,14 +204,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(19));
 
         //stop location updates
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
 
-        getPlayerLocation();
     }
 
     /**
@@ -278,8 +291,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void getPlayerLocation(){
 
-        //new GetTask(user1, this).execute();
-        //user1 = GSON.fromJson("", User.class);
-        //Toast.makeText(this, user1.getLatitude().toString(), Toast.LENGTH_LONG).show();
+
+        User testUser = new User("4", 00.0, 00.0);
+        Toast testToast = new Toast(this);
+        GetTask get = new GetTask(testUser, testToast, this).execute();
     }
 }
