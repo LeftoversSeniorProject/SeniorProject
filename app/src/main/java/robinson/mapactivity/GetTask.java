@@ -73,10 +73,9 @@ class GetTask extends AsyncTask<Void, Void, String> {
         Log.i("INFO", response);
         user = GSON.fromJson(response, User.class);
         LatLng hiderLocation = new LatLng(user.getLatitude(), user.getLongitude());
-        MarkerOptions testMarker = new MarkerOptions();
-        testMarker.position(hiderLocation);
-        testMarker.title("Opponent");
-        map.addMarker(testMarker);
+        marker.position(hiderLocation);
+        marker.title("Opponent");
+        map.addMarker(marker);
 
     }
 }
