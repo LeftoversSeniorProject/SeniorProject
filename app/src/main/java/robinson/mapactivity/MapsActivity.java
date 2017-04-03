@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -43,6 +44,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //declare button variables
     private Button btnEndGame;
     private Button btnMarco;
+
+    public static final String API_URL = "http://10.35.18.176:4567";
 
     Gson GSON = new GsonBuilder().create();
     User hider = new User("4", 0.00, 0.00);
@@ -207,7 +210,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         //gets hider location
-        getPlayerLocation();
+        //getPlayerLocation();
     }
 
     /**
@@ -300,13 +303,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * sets marker for hider's location
      */
     public void setLocation(){
-        hider = g1.getUser();
+        g1 = new GetTask(hider);
+        g1.execute();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable(){
+            @Override
+            public void run(){
+                hider = g1.getUser();
+                System.out.println(hider.getLatitude());
+                MarkerOptions hiderMarker = new MarkerOptions();
+                LatLng hiderLocation = new LatLng(hider.getLatitude(), hider.getLongitude());
+                hiderMarker.position(hiderLocation);
+                hiderMarker.title("Opponent");
+                mMap.addMarker(hiderMarker);
+            }
+        }, 3000);
         Toast.makeText(this,hider.getLatitude() + "",Toast.LENGTH_SHORT).show();
-        MarkerOptions hiderMarker = new MarkerOptions();
-        LatLng hiderLocation = new LatLng(hider.getLatitude(), hider.getLongitude());
-        hiderMarker.position(hiderLocation);
-        hiderMarker.title("Opponent");
-        mMap.addMarker(hiderMarker);
+
     }
 
 }
