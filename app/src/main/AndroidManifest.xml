@@ -58,7 +58,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Help" />
-        <activity android:name=".JoinActivity"></activity>
+        <activity android:name=".JoinActivity" />
+        <activity android:name=".TitleActivity"></activity>
     </application>
 
 </manifest>
