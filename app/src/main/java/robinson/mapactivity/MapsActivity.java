@@ -90,9 +90,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnEndGame.setOnClickListener(this);
         Toast.makeText(this,"Set Button Listeners",Toast.LENGTH_SHORT).show();
 
-        g1 = new GetTask(hider);
-        g1.execute();
-
     }
 
 
@@ -167,7 +164,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         switch (v.getId()) {
 
             case R.id.marco_button:
-                getPlayerLocation();
+                setLocation();
                 break;
 
             case R.id.end_game_button:
@@ -208,6 +205,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
+
+        //gets hider location
+        getPlayerLocation();
     }
 
     /**
@@ -286,7 +286,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+    /**
+     * Gets opponent location from the server
+     */
     public void getPlayerLocation(){
+
+        g1 = new GetTask(hider);
+        g1.execute();
+
+    }
+
+    /**
+     * sets marker for hider's location
+     */
+    public void setLocation(){
         hider = g1.getUser();
         Toast.makeText(this,hider.getLatitude() + "",Toast.LENGTH_SHORT).show();
         MarkerOptions hiderMarker = new MarkerOptions();
@@ -294,7 +307,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         hiderMarker.position(hiderLocation);
         hiderMarker.title("Opponent");
         mMap.addMarker(hiderMarker);
-
     }
 
 }
