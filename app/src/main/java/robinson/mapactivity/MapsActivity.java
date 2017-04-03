@@ -44,8 +44,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     //declare button variables
-    private Button btnEndGame;
-    private Button btnMarco;
+    //private Button btnEndGame;
+   // private Button btnMarco;
    // private Button btnHelp;
 
 
@@ -54,8 +54,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     //Google declarations
 
-    private Button  btnNewGame;
-    private Button btnHelp;
+   // private Button  btnNewGame;
+   // private Button btnHelp;
 
     private GoogleMap mMap;
     GoogleApiClient mGoogleApiClient;
@@ -87,11 +87,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         //set Button Listeners
-        btnMarco = (Button) findViewById(R.id.marco_button);
-        btnMarco.setOnClickListener(this);
-        btnEndGame = (Button) findViewById(R.id.end_game_button);
-        btnEndGame.setOnClickListener(this);
-        Toast.makeText(this,"Set Button Listeners",Toast.LENGTH_SHORT).show();
+       // btnMarco = (Button) findViewById(R.id.marco_button);
+      //  btnMarco.setOnClickListener(this);
+       // btnEndGame = (Button) findViewById(R.id.end_game_button);
+       // btnEndGame.setOnClickListener(this);
+        //Toast.makeText(this,"Set Button Listeners",Toast.LENGTH_SHORT).show();
 
     }
 
@@ -162,8 +162,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      processes button instruction
      * @param v
      */
-    public void onClick(View v){
 
+
+    public void onClick(View v){
+/**
         switch (v.getId()) {
 
             case R.id.marco_button:
@@ -179,8 +181,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
 
         }
-
+**/
     }
+
+
 
     /**
      * onLocationChanged method- updates user's location

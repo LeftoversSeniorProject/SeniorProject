@@ -1,3 +1,5 @@
+/**
+
 package robinson.mapactivity;
 
 import android.content.Intent;
@@ -14,7 +16,9 @@ import static robinson.mapactivity.R.layout.activity_maps;
 
 /**
  * Created by Michael on 3/8/2017.
- */
+ *
+
+
 public class Help extends MapsActivity implements View.OnClickListener {
 
     private Button btnClose;
@@ -40,6 +44,11 @@ public class Help extends MapsActivity implements View.OnClickListener {
                 startActivity(new Intent(getApplicationContext(), MapsActivity.class));
             break;
         }
+
+
     }
+
+
 }
 
+**/

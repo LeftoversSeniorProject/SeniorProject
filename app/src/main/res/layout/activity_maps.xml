@@ -6,30 +6,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="robinson.mapactivity.MapsActivity"
+    tools:layout="@layout/activity_maps" />
+
+    <!--
     tools:layout="@layout/activity_maps">
 
-    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-        android:orientation="vertical">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/marco_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Marco!"/>
+            <Button
+                android:id="@+id/marco_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Marco!"/>
 
-        <Button
-            android:id="@+id/end_game_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="End Game"/>
+            <Button
+                android:id="@+id/end_game_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="End Game"/>
 
-        <Button
-            android:id="@+id/help_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="bottom"
-            android:text="Help"/>
+            <Button
+                android:id="@+id/help_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:text="Help"/>
 
-    </LinearLayout>
-</fragment>
+        </LinearLayout>
 
+
+    </fragment>
+
+-->
