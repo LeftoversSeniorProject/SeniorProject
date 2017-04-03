@@ -1,20 +1,15 @@
 package robinson.mapactivity;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 
 /**˚
@@ -30,10 +25,9 @@ class GetTask extends AsyncTask<Void, Void, String> {
 
     private Gson GSON = new GsonBuilder().create();
 
-    public GetTask(User user, Boolean isDone){
+    public GetTask(User user){
         this.user = user;
         id = user.getId();
-        this.isDone = isDone;
     }
 
     protected void onPreExecute(){
@@ -46,6 +40,7 @@ class GetTask extends AsyncTask<Void, Void, String> {
             URL url = new URL("http://10.35.17.226:4567/users/" + id);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             try{
+                System.out.println("Entered try block");
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                 StringBuilder stringBuilder = new StringBuilder();
                 String line;
@@ -70,7 +65,10 @@ class GetTask extends AsyncTask<Void, Void, String> {
         }
         Log.i("INFO", response);
         user = GSON.fromJson(response, User.class);
-        isDone = true;
-
     }
+
+    public User getUser(){
+        return user;
+    }
+
 }

@@ -30,8 +30,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.concurrent.ExecutionException;
-
 import static robinson.mapactivity.R.id.map;
 
 
@@ -60,6 +58,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
     public String getData;
+    private GetTask g1;
 
     /**
      * onCreate method - sets up map and google API
@@ -90,6 +89,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnEndGame = (Button) findViewById(R.id.end_game_button);
         btnEndGame.setOnClickListener(this);
         Toast.makeText(this,"Set Button Listeners",Toast.LENGTH_SHORT).show();
+
+        g1 = new GetTask(hider);
+        g1.execute();
 
     }
 
@@ -165,13 +167,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         switch (v.getId()) {
 
             case R.id.marco_button:
-                try {
-                    getPlayerLocation();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                getPlayerLocation();
                 break;
 
             case R.id.end_game_button:
@@ -290,12 +286,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    public void getPlayerLocation() throws ExecutionException, InterruptedException {
-        Boolean isDone = false;
-        new GetTask(hider, isDone).execute();
-        while(!isDone){
-            //wait
-        }
+    public void getPlayerLocation(){
+        hider = g1.getUser();
+        Toast.makeText(this,hider.getLatitude() + "",Toast.LENGTH_SHORT).show();
         MarkerOptions hiderMarker = new MarkerOptions();
         LatLng hiderLocation = new LatLng(hider.getLatitude(), hider.getLongitude());
         hiderMarker.position(hiderLocation);
@@ -303,4 +296,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(hiderMarker);
 
     }
+
 }
