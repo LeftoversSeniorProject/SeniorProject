@@ -172,7 +172,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         switch (v.getId()) {
 
             case R.id.marco_button:
-                getPlayerLocation();
+                //getPlayerLocation();
                 break;
 
             case R.id.end_game_button:
