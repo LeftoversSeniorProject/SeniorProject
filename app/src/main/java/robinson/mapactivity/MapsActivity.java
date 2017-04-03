@@ -165,7 +165,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         switch (v.getId()) {
 
             case R.id.marco_button:
-                //getPlayerLocation();
+                try {
+                    getPlayerLocation();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 break;
 
             case R.id.end_game_button:
@@ -205,14 +211,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //stop location updates
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        }
-
-        try {
-            getPlayerLocation();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
