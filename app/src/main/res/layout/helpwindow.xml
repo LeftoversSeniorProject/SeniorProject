@@ -12,14 +12,14 @@
         android:text="Welcome to Marco Polo App!" />
 
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="center|bottom"
-        android:orientation="vertical">
-
-
+        android:gravity="center|center"
+        android:orientation="vertical"
+        android:text="This game requires two players.One player (the seeker) tries to catch the other(the hider). The seeker must get close enough to hider and then press the CATCH button to win the game.  The seeker can request the hider's location a limited number of times. After using all of their location-checks, the hider can continue the game or concede. To begin a game, the seeker should press the START GAME button. The hider should press the JOIN GAME button and enter the seeker's information."/>
+    <!--There doesn't seem to be any nice way of breaking up the above line without messing up the formatting. I tried to find one.-->
         <Button
             android:id="@+id/close_button"
             android:layout_width="wrap_content"
@@ -29,5 +29,3 @@
 
 
     </LinearLayout>
-
-</LinearLayout>
