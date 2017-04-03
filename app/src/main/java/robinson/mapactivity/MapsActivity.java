@@ -30,6 +30,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.concurrent.ExecutionException;
+
+import static robinson.mapactivity.R.id.map;
+
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
 
@@ -55,6 +59,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
+    public String getData;
 
     /**
      * onCreate method - sets up map and google API
@@ -74,7 +79,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+                .findFragmentById(map);
         mapFragment.getMapAsync(this);
 
 
@@ -160,7 +165,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         switch (v.getId()) {
 
             case R.id.marco_button:
-                getPlayerLocation();
+                //getPlayerLocation();
                 break;
 
             case R.id.end_game_button:
@@ -202,7 +207,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
 
-        getPlayerLocation();
+        try {
+            getPlayerLocation();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -281,11 +292,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    public void getPlayerLocation(){
+    public void getPlayerLocation() throws ExecutionException, InterruptedException {
+        getData = new GetTask(hider).get();
+
 
         MarkerOptions hiderMarker = new MarkerOptions();
-        new GetTask(hider, hiderMarker, mMap).execute();
-        
+        LatLng hiderLocation = new LatLng(hider.getLatitude(), hider.getLongitude());
+        hiderMarker.position(hiderLocation);
+        hiderMarker.title("Opponent");
+        mMap.addMarker(hiderMarker);
 
     }
 }

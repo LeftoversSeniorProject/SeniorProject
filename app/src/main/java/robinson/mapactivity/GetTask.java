@@ -26,15 +26,11 @@ class GetTask extends AsyncTask<Void, Void, String> {
     private Exception exception;
     private String id;
     private User user;
-    private MarkerOptions marker;
-    private GoogleMap map;
 
     private Gson GSON = new GsonBuilder().create();
 
-    public GetTask(User user, MarkerOptions marker, GoogleMap map){
+    public GetTask(User user){
         this.user = user;
-        this.marker = marker;
-        this.map = map;
         id = user.getId();
     }
 
@@ -72,10 +68,6 @@ class GetTask extends AsyncTask<Void, Void, String> {
         }
         Log.i("INFO", response);
         user = GSON.fromJson(response, User.class);
-        LatLng hiderLocation = new LatLng(user.getLatitude(), user.getLongitude());
-        marker.position(hiderLocation);
-        marker.title("Opponent");
-        map.addMarker(marker);
 
     }
 }
