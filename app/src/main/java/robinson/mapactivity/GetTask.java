@@ -26,12 +26,14 @@ class GetTask extends AsyncTask<Void, Void, String> {
     private Exception exception;
     private String id;
     private User user;
+    private Boolean isDone;
 
     private Gson GSON = new GsonBuilder().create();
 
-    public GetTask(User user){
+    public GetTask(User user, Boolean isDone){
         this.user = user;
         id = user.getId();
+        this.isDone = isDone;
     }
 
     protected void onPreExecute(){
@@ -41,7 +43,7 @@ class GetTask extends AsyncTask<Void, Void, String> {
         //do validation here
 
         try{
-            URL url = new URL("http://10.35.18.240:4567/users/" + id);
+            URL url = new URL("http://10.35.17.226:4567/users/" + id);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             try{
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -68,6 +70,7 @@ class GetTask extends AsyncTask<Void, Void, String> {
         }
         Log.i("INFO", response);
         user = GSON.fromJson(response, User.class);
+        isDone = true;
 
     }
 }
