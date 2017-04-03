@@ -298,9 +298,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void getPlayerLocation() throws ExecutionException, InterruptedException {
-        getData = new GetTask(hider).get();
-
-
+        Boolean isDone = false;
+        new GetTask(hider, isDone).execute();
+        while(!isDone){
+            //wait
+        }
         MarkerOptions hiderMarker = new MarkerOptions();
         LatLng hiderLocation = new LatLng(hider.getLatitude(), hider.getLongitude());
         hiderMarker.position(hiderLocation);
