@@ -319,7 +319,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }, 3000);
         Toast.makeText(this,hider.getLatitude() + "",Toast.LENGTH_SHORT).show();
-
+        
     }
 
 }
