@@ -37,8 +37,9 @@ class GetTask extends AsyncTask<Void, Void, String> {
         //do validation here
 
         try{
-            URL url = new URL("http://10.35.17.226:4567/users/" + id);
+            URL url = new URL("http://10.35.17.237:4567/users/" + id);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            System.out.println("Connected to server");
             try{
                 System.out.println("Entered try block");
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -65,6 +66,7 @@ class GetTask extends AsyncTask<Void, Void, String> {
         }
         Log.i("INFO", response);
         user = GSON.fromJson(response, User.class);
+        System.out.println("server user is " + user.getLatitude());
     }
 
     public User getUser(){

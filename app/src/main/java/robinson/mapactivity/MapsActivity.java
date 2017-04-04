@@ -166,8 +166,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         switch (v.getId()) {
 
+
             case R.id.marco_button:
-                setLocation();
+                //gets the hider's location from the server
+                //marks the hider's location on the map
+                getHiderLocation();
                 break;
 
             case R.id.end_game_button:
@@ -208,9 +211,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
-
-        //gets hider location
-        //getPlayerLocation();
     }
 
     /**
@@ -290,19 +290,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     /**
-     * Gets opponent location from the server
-     */
-    public void getPlayerLocation(){
-
-        g1 = new GetTask(hider);
-        g1.execute();
-
-    }
-
-    /**
      * sets marker for hider's location
      */
-    public void setLocation(){
+    public void getHiderLocation(){
         g1 = new GetTask(hider);
         g1.execute();
         final Handler handler = new Handler();
