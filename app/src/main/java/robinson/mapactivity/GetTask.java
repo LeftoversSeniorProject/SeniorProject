@@ -1,6 +1,5 @@
 package robinson.mapactivity;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -21,14 +20,13 @@ class GetTask extends AsyncTask<Void, Void, String> {
 
     private Exception exception;
     private String id;
-    private Context context;
     private User user;
+    private Boolean isDone;
 
     private Gson GSON = new GsonBuilder().create();
 
-    public GetTask(User user, Context context){
+    public GetTask(User user){
         this.user = user;
-        this.context = context;
         id = user.getId();
     }
 
@@ -39,9 +37,11 @@ class GetTask extends AsyncTask<Void, Void, String> {
         //do validation here
 
         try{
-            URL url = new URL("http://10.35.19.212:4567/users/" + id);
+            URL url = new URL("http://10.35.17.237:4567/users/" + id);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            System.out.println("Connected to server");
             try{
+                System.out.println("Entered try block");
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                 StringBuilder stringBuilder = new StringBuilder();
                 String line;
@@ -65,5 +65,12 @@ class GetTask extends AsyncTask<Void, Void, String> {
             response = "THERE WAS AN ERROR";
         }
         Log.i("INFO", response);
+        user = GSON.fromJson(response, User.class);
+        System.out.println("server user is " + user.getLatitude());
     }
+
+    public User getUser(){
+        return user;
+    }
+
 }
