@@ -102,6 +102,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnEndGame.setOnClickListener(this);
         Toast.makeText(this,"Set Button Listeners",Toast.LENGTH_SHORT).show();
 
+
     }
 
 
@@ -204,6 +205,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mCurrLocationMarker.remove();
         }
         Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
+        //Line below is for testing only
+        Toast.makeText(this, Double.toString(getDistance(39.7104590,-75.1201590, 39.7104810,-75.1201020)), Toast.LENGTH_SHORT).show();
+
         //Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
@@ -319,6 +323,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }, 3000);
         Toast.makeText(this,hider.getLatitude() + "",Toast.LENGTH_SHORT).show();
         
+    }
+
+
+    //Gets the distance between two points of latitude and longitude
+    //The return value is in meters.
+    public double getDistance(double lat1, double long1, double lat2, double long2){
+        double radius = 6371;//Earth's radius in km
+        double latDiff = toRadians(lat2 - lat1);
+        double longDiff = toRadians(long2 - long1);
+        double a =
+                Math.sin(latDiff/2) * Math.sin(latDiff/2) +
+                Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
+                Math.sin(longDiff/2) * Math.sin(longDiff/2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        return radius * c * 1000;
+    }
+
+    private double toRadians(double degrees){
+        return degrees * (Math.PI/180);
     }
 
 }
