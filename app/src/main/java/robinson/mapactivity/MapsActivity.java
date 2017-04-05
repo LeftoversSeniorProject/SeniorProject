@@ -45,12 +45,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //declare button variables
     private Button btnEndGame;
     private Button btnMarco;
+    private Button btnTag;
+
+    private Button  btnNewGame;
+    private Button btnHelp;
+
     private Button btnStart;
 
 
     public static final String API_URL = "http://10.35.18.176:4567";
 
-    private Button btnTag;
+
 
 
     Gson GSON = new GsonBuilder().create();
@@ -58,10 +63,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     User testUser = new User("1", 39.7111317, -75.1200462);
 
     //Google declarations
-
-    private Button  btnNewGame;
-    private Button btnHelp;
-
     private GoogleMap mMap;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
