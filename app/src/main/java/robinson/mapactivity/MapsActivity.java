@@ -1,8 +1,6 @@
 package robinson.mapactivity;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -13,11 +11,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -58,6 +53,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     Gson GSON = new GsonBuilder().create();
     User hider = new User("4", 0.00, 0.00);
+    User testUser = new User("1", 39.7111317, -75.1200462);
 
     //Google declarations
 
@@ -205,6 +201,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mCurrLocationMarker.remove();
         }
         Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,Double.toString(getDistance(testUser.getLatitude(), testUser.getLongitude()
+        , location.getLatitude(), location.getLongitude())),Toast.LENGTH_LONG).show();
 
 
         //Place current location marker
