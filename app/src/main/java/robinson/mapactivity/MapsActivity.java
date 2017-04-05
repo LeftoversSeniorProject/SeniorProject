@@ -1,6 +1,7 @@
 package robinson.mapactivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -44,6 +45,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //declare button variables
     private Button btnEndGame;
     private Button btnMarco;
+    private Button btnStart;
 
 
     public static final String API_URL = "http://10.35.18.176:4567";
@@ -96,6 +98,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnMarco.setOnClickListener(this);
         btnEndGame = (Button) findViewById(R.id.end_game_button);
         btnEndGame.setOnClickListener(this);
+        btnTag = (Button) findViewById(R.id.tag_button);
+        btnTag.setOnClickListener(this);
+        btnStart = (Button) findViewById(R.id.start_button);
+        btnStart.setOnClickListener(this);
+
+
+
         Toast.makeText(this,"Set Button Listeners",Toast.LENGTH_SHORT).show();
 
 
@@ -181,6 +190,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             case R.id.end_game_button:
                 //to do write end game code
+                break;
+
+            case R.id.start_button:
+                Intent intent = new Intent(MapsActivity.this, JoinActivity.class);
+                //intent.putExtra("latitute", 34.8098080980);
+                // intent.putExtra("longitude", 67.09098898);
+                startActivity(intent);
                 break;
 
         }
