@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -35,6 +36,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import static robinson.mapactivity.R.id.map;
+
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
 
@@ -46,11 +49,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //declare button variables
     private Button btnEndGame;
     private Button btnMarco;
-   // private Button btnHelp;
+
+
+    public static final String API_URL = "http://10.35.18.176:4567";
+
+    private Button btnTag;
 
 
     Gson GSON = new GsonBuilder().create();
-    User user1;
+    User hider = new User("4", 0.00, 0.00);
 
     //Google declarations
 
@@ -62,6 +69,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
+    public String getData;
+    private GetTask g1;
 
     /**
      * onCreate method - sets up map and google API
@@ -81,7 +90,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+                .findFragmentById(map);
         mapFragment.getMapAsync(this);
 
 
@@ -167,12 +176,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         switch (v.getId()) {
 
+
             case R.id.marco_button:
-                LatLng test = new LatLng(39.7100499, -75.1199791);
-                MarkerOptions testMarker = new MarkerOptions();
-                testMarker.position(test);
-                testMarker.title("Test User");
-                mMap.addMarker(testMarker);
+                //gets the hider's location from the server
+                //marks the hider's location on the map
+                getHiderLocation();
                 break;
 
             case R.id.end_game_button:
@@ -216,10 +224,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
-
-
-        getPlayerLocation();
-
     }
 
     /**
@@ -298,12 +302,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    public void getPlayerLocation(){
-
-        //new GetTask(user1, this).execute();
-        //user1 = GSON.fromJson("", User.class);
-        //Toast.makeText(this, user1.getLatitude().toString(), Toast.LENGTH_LONG).show();
+    /**
+     * sets marker for hider's location
+     */
+    public void getHiderLocation(){
+        g1 = new GetTask(hider);
+        g1.execute();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable(){
+            @Override
+            public void run(){
+                hider = g1.getUser();
+                System.out.println(hider.getLatitude());
+                MarkerOptions hiderMarker = new MarkerOptions();
+                LatLng hiderLocation = new LatLng(hider.getLatitude(), hider.getLongitude());
+                hiderMarker.position(hiderLocation);
+                hiderMarker.title("Opponent");
+                mMap.addMarker(hiderMarker);
+            }
+        }, 3000);
+        Toast.makeText(this,hider.getLatitude() + "",Toast.LENGTH_SHORT).show();
+        
     }
+
 
     //Gets the distance between two points of latitude and longitude
     //The return value is in meters.
@@ -322,4 +343,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double toRadians(double degrees){
         return degrees * (Math.PI/180);
     }
+
 }

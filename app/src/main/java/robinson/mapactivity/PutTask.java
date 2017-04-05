@@ -17,7 +17,7 @@ import java.net.URL;
  * Created by gibl3t on 3/27/17.
  */
 
-class PostTask extends AsyncTask<Void, Void, String> {
+class PutTask extends AsyncTask<Void, Void, String> {
 
     private Exception exception;
     private String id;
@@ -25,7 +25,7 @@ class PostTask extends AsyncTask<Void, Void, String> {
 
     private Gson GSON = new GsonBuilder().create();
 
-    public PostTask(User user){
+    public PutTask(User user){
         this.user = user;
         id = user.getId();
     }
@@ -37,10 +37,10 @@ class PostTask extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... urls){
 
         try{
-            URL url = new URL("http://10.35.19.212:4567/users");
+            URL url = new URL("http://10.35.19.212:4567/users/" + id);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             try{
-                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestMethod("PUT");
                 urlConnection.setDoOutput(true);
 
                 OutputStreamWriter outputStreamWriter = new OutputStreamWriter(urlConnection.getOutputStream());
@@ -48,7 +48,7 @@ class PostTask extends AsyncTask<Void, Void, String> {
                 outputStreamWriter.flush();
 
                 int responseCode = urlConnection.getResponseCode();
-                System.out.println("Sending POST");
+                System.out.println("Sending PUT");
                 System.out.println("Response code: " + responseCode);
                 System.out.println("GSON USER: " + GSON.toJson(user));
 
@@ -77,7 +77,6 @@ class PostTask extends AsyncTask<Void, Void, String> {
             response = "THERE WAS AN ERROR";
         }
         Log.i("INFO", response);
-        user = GSON.fromJson(response, User.class);
-        System.out.println("Post Execute User ID = " + user.getId());
+        System.out.println("Put Execute User ID = " + user.getId());
     }
 }
