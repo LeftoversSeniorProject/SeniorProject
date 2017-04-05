@@ -29,15 +29,29 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name="robinson.mapactivity.MapsActivity"
-            android:label="@string/title_activity_maps">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <activity android:name="TitleScreen"
+                android:label="Title Screen"
+                android:theme="@style/AppTheme.NoActionBar">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+            </activity>
+
+            <activity android:name=".NewGameScreen"
+                android:label="New Game"
+                android:theme="@style/AppTheme.NoActionBar"/>
+
+            <activity android:name=".HelpScreen"
+                android:label="New Game"
+                android:theme="@style/AppTheme.NoActionBar"/>
+
+            <activity
+                android:name="robinson.mapactivity.MapsActivity"
+                android:label="@string/title_activity_maps">
+            </activity>
+
         <activity android:name=".Help"></activity>
     </application>
 

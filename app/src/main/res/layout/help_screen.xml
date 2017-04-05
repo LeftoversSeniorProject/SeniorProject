@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background= "#FFC6D5">
+
+    <TextView
+        android:id="@+id/rules"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="The game is Marco polo with a twist. When you start the game your Marco and need to find a Polo to start the game. Once that’s taken care of, Polo will hide and the the game will count to 30 while you stay or close your eyes in one place. No peeking, or else your a dirty cheater. The game will start and you’ll have to find your friend through the horryfying maze of the outside world. Fortunately, you will not be alone. Use your map to find your friend. The Marco button will show you where he’s hiding but you can only use it 10 times or the game is over. Good luck!!!"
+        android:textColor="#ffffff"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/back"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Go Back"
+            android:onClick="onBackClick"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</LinearLayout>
