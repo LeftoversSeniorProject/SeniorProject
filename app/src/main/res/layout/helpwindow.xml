@@ -41,13 +41,16 @@
         android:gravity="left|center"
         android:orientation="vertical"
         android:text="--The seeker can request the hider's location a limited number of times."/>
+
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="left|center"
         android:orientation="vertical"
-        android:text="--After using all of their location-checks, the hider can continue the game or concede."/>
+        android:text="--After using all of their location-checks, the hider can continue the game or concede." />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"

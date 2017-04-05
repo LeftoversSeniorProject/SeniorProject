@@ -205,8 +205,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mCurrLocationMarker.remove();
         }
         Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
-        //Line below is for testing only
-        Toast.makeText(this, Double.toString(getDistance(39.7104590,-75.1201590, 39.7104810,-75.1201020)), Toast.LENGTH_SHORT).show();
+
 
         //Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
