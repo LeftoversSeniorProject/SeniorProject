@@ -199,17 +199,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onLocationChanged(Location location)
     {
-        //updates hider's location if it has not yet been updated
-        if(hider.getId() == null){
-            updateHiderLocation(location);
-        }
-
-
-        mLastLocation = location;
+            mLastLocation = location;
+        Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
         if (mCurrLocationMarker != null) {
             mCurrLocationMarker.remove();
         }
-        Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
+
+        //updates hider's location if it has not yet been updated and they are not seeker
+        if(hider.getId() == null && !isSeeker()){
+            updateHiderLocation();
+        }
+
+
         //Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
@@ -221,11 +222,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-
-        //stop location updates
-        if (mGoogleApiClient != null) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        }
     }
 
     /**
@@ -329,27 +325,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * Posts hider's current location to the server
-     * @param user
+     * @param
      */
-    public void postHiderLocation(User user){
-
-        user = hider;
-        p1 = new PostTask(user);
+    public void postHiderLocation(){
+        p1 = new PostTask(hider);
         p1.execute();
         hider = p1.getUser();
 
     }
 
     /**
-     * Update hider's current location
-     * @param location
+     * Update hider's current location with most recent location update
+     *
      */
-    public void updateHiderLocation(Location location){
-        if(!isSeeker()) {
-            hider.setLongitude(location.getLongitude());
-            hider.setLatitude(location.getLatitude());
-            postHiderLocation(hider);
-        }
+    public void updateHiderLocation(){
+            hider.setLongitude(mLastLocation.getLongitude());
+            hider.setLatitude(mLastLocation.getLatitude());
+            postHiderLocation();
     }
 
     /**
