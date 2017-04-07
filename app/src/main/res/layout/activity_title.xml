@@ -6,8 +6,12 @@
     android:layout_height="match_parent"
     tools:context="robinson.mapactivity.TitleActivity">
 
+    <LinearLayout android:layout_width="131dp" android:layout_height="551dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
     <Button
-        android:id="@+id/createButton"
+        android:id="@+id/create_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create"
@@ -16,7 +20,7 @@
         tools:layout_editor_absoluteY="34dp" />
 
     <Button
-        android:id="@+id/joinButton"
+        android:id="@+id/join_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Join"
@@ -24,11 +28,13 @@
         tools:layout_editor_absoluteY="184dp" />
 
     <Button
-        android:id="@+id/helpButton"
+        android:id="@+id/help_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Help"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_editor_absoluteY="338dp" />
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
