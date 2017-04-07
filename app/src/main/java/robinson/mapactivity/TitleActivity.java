@@ -11,6 +11,7 @@ import android.widget.Toast;
 import android.support.v7.app.AppCompatActivity;
 
 public class TitleActivity extends AppCompatActivity {
+    //create button
     private Button btnCreate;
     private Button btnJoin;
     private Button btnHelp;
