@@ -57,20 +57,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public static final String API_URL = "http://10.35.18.176:4567";
 
 
+
+
+    Gson GSON = new GsonBuilder().create();
+    User hider = new User("4", 0.00, 0.00);
+    User testUser = new User("1", 39.7111317, -75.1200462);
+
     //Google declarations
     private GoogleMap mMap;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
-
-
     public String getData;
     private GetTask g1;
-    private PostTask p1;
-    private boolean seeker;
-    Gson GSON = new GsonBuilder().create();
-    User hider = new User(null, 0.00, 0.00);
 
     /**
      * onCreate method - sets up map and google API
@@ -98,8 +98,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //set Button Listeners
         btnMarco = (Button) findViewById(R.id.marco_button);
         btnMarco.setOnClickListener(this);
-        tagButton = (Button) findViewById(R.id.tag_button);
-        tagButton.setOnClickListener(this);
         btnEndGame = (Button) findViewById(R.id.end_game_button);
         btnEndGame.setOnClickListener(this);
 
@@ -201,8 +199,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //to do write end game code
                 break;
 
+            case R.id.end_game_button:
+                //to do write end game code
+                break;
+
             case R.id.start_button:
-                Intent intent = new Intent(MapsActivity.this, JoinActivity.class);
+                Intent intent = new Intent(MapsActivity.this, TitleActivity.class);
                 //intent.putExtra("latitute", 34.8098080980);
                 // intent.putExtra("longitude", 67.09098898);
                 startActivity(intent);
@@ -221,11 +223,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onLocationChanged(Location location)
     {
-            mLastLocation = location;
-        Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
+        mLastLocation = location;
         if (mCurrLocationMarker != null) {
             mCurrLocationMarker.remove();
         }
+        Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,Double.toString(getDistance(testUser.getLatitude(), testUser.getLongitude()
+        , location.getLatitude(), location.getLongitude())),Toast.LENGTH_LONG).show();
 
         //updates hider's location if it has not yet been updated and they are not seeker
         if(hider.getId() == null && !isSeeker()){
@@ -244,6 +248,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+        //stop location updates
+        if (mGoogleApiClient != null) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        }
     }
 
     /**
@@ -344,6 +353,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Toast.makeText(this,hider.getLatitude() + "",Toast.LENGTH_SHORT).show();
         
     }
+
 
 /**
     //Gets the distance between two points of latitude and longitude
