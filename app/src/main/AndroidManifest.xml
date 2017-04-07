@@ -12,10 +12,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-feature
-        android:glEsVersion="0x00020000"
-        android:required="true" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -33,7 +29,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAoEBWO9Z0mXf6TeFzwtjlxl2hR2OKWDSE" />
+            android:value="@string/google_maps_key" />
 
         <activity
             android:name=".MapsActivity"
@@ -45,6 +41,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Help" />
+        <activity android:name=".TitleActivity"></activity>
         <activity android:name=".JoinActivity"></activity>
     </application>
 

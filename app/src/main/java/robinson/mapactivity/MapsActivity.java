@@ -194,7 +194,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
 
             case R.id.start_button:
-                Intent intent = new Intent(MapsActivity.this, JoinActivity.class);
+                Intent intent = new Intent(MapsActivity.this, TitleActivity.class);
                 //intent.putExtra("latitute", 34.8098080980);
                 // intent.putExtra("longitude", 67.09098898);
                 startActivity(intent);
