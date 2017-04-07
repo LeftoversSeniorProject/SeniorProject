@@ -29,8 +29,7 @@ public class JoinActivity extends AppCompatActivity {
                     case R.id.join_button:
                         //startActivity(new Intent(getApplicationContext(), MapsActivity.class));
                         Intent intent = new Intent(JoinActivity.this, MapsActivity.class);
-                        //intent.putExtra("latitute", 34.8098080980);
-                        //intent.putExtra("longitude", 67.09098898);
+
                         String id_string = editText.getText().toString();
                         intent.putExtra("hider_id", id_string);
                         startActivity(intent);
