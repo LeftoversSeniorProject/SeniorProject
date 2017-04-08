@@ -96,6 +96,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnEndGame.setOnClickListener(this);
         Toast.makeText(this,"Set Button Listeners",Toast.LENGTH_SHORT).show();
 
+        //Remove buttons if hider
+        /**if(!isSeeker()){
+            btnMarco.setVisibility(View.GONE);
+            tagButton.setVisibility(View.GONE);
+            btnEndGame.setVisibility(View.GONE);
+        }
+         **/
+
 
 
     }
@@ -207,8 +215,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //updates hider's location if it has not yet been updated and they are not seeker
         if(hider.getId() == null && !isSeeker()){
-            updateHiderLocation();
+            postHiderLocation();
         }
+
+        //if(hider.getId() != null && !isSeeker()){
+        //  putHider();
+        //}
 
 
         //Place current location marker
@@ -221,7 +233,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
     }
 
     /**
@@ -328,20 +340,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * @param
      */
     public void postHiderLocation(){
+        hider.setLongitude(mLastLocation.getLongitude());
+        hider.setLatitude(mLastLocation.getLatitude());
         p1 = new PostTask(hider);
         p1.execute();
         hider = p1.getUser();
 
-    }
-
-    /**
-     * Update hider's current location with most recent location update
-     *
-     */
-    public void updateHiderLocation(){
-            hider.setLongitude(mLastLocation.getLongitude());
-            hider.setLatitude(mLastLocation.getLatitude());
-            postHiderLocation();
     }
 
     /**
