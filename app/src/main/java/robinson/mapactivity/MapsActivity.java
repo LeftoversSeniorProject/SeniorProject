@@ -60,9 +60,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public String getData;
     private GetTask g1;
     private PostTask p1;
+    private PutTask p2;
     private boolean seeker;
     Gson GSON = new GsonBuilder().create();
-    User hider = new User(null, 0.00, 0.00);
+    User hider;
 
     /**
      * onCreate method - sets up map and google API
@@ -85,7 +86,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(map);
         mapFragment.getMapAsync(this);
 
-
+         hider = new User(null, 0.00, 0.00);
 
         //set Button Listeners
         btnMarco = (Button) findViewById(R.id.marco_button);
@@ -103,11 +104,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             btnEndGame.setVisibility(View.GONE);
         }
          **/
-
-
-
     }
-
 
 
     /**
@@ -208,7 +205,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onLocationChanged(Location location)
     {
             mLastLocation = location;
-        Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
         if (mCurrLocationMarker != null) {
             mCurrLocationMarker.remove();
         }
@@ -217,6 +213,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if(hider.getId() == null && !isSeeker()){
             postHiderLocation();
         }
+        Toast.makeText(this,"Posted hider location",Toast.LENGTH_SHORT).show();
 
         //if(hider.getId() != null && !isSeeker()){
         //  putHider();
@@ -313,11 +310,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     /**
-     * sets marker for hider's location
+     * Gets hider from the server
+     * Posts hider location to map
      */
     public void getHiderLocation(){
         g1 = new GetTask(hider);
         g1.execute();
+        //Delay for Get
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable(){
             @Override
@@ -331,12 +330,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.addMarker(hiderMarker);
             }
         }, 3000);
-        Toast.makeText(this,hider.getLatitude() + "",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,hider.getId() + " " + hider.getLatitude() + "",Toast.LENGTH_SHORT).show();
         
     }
 
     /**
      * Posts hider's current location to the server
+     * Returns user and sets hider variable
      * @param
      */
     public void postHiderLocation(){
@@ -344,7 +344,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         hider.setLatitude(mLastLocation.getLatitude());
         p1 = new PostTask(hider);
         p1.execute();
-        hider = p1.getUser();
+
+        //Delay for Post
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hider = p1.getUser();
+                hider.setLatitude(hider.getLatitude() + .5);
+            }
+            }, 3000);
+
+
+    }
+
+    /**
+     * Puts hider's location in the server and returns the user
+     * Then it update hider variable
+     */
+    public void putHiderLocation(){
+        hider.setLongitude(mLastLocation.getLongitude());
+        hider.setLatitude(mLastLocation.getLatitude());
+        p2 = new PutTask(hider);
+        p2.execute();
+
+        //Delay for Put
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hider = p2.getUser();
+            }
+        }, 3000);
 
     }
 

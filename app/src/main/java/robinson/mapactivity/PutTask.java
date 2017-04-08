@@ -79,4 +79,8 @@ class PutTask extends AsyncTask<Void, Void, String> {
         Log.i("INFO", response);
         System.out.println("Put Execute User ID = " + user.getId());
     }
+
+    public User getUser(){
+        return user;
+    }
 }
