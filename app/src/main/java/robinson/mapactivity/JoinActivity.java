@@ -22,22 +22,19 @@ public class JoinActivity extends AppCompatActivity {
         btnJoin = (Button) findViewById(R.id.join_button);
         editText = (EditText) findViewById(R.id.edit_text);
 
-        btnJoin.setOnClickListener(new View.OnClickListener() {
+        btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.join_button:
                         //startActivity(new Intent(getApplicationContext(), MapsActivity.class));
                         Intent intent = new Intent(JoinActivity.this, MapsActivity.class);
-
                         String id_string = editText.getText().toString();
                         intent.putExtra("hider_id", id_string);
                         startActivity(intent);
 
-                        break;
-                }
             }
         });
+
+
 
         Toast.makeText(this, "button set", Toast.LENGTH_LONG).show();
     }
