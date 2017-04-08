@@ -1,5 +1,7 @@
 package robinson.mapactivity;
-
+/**
+ *
+ */
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,14 +14,14 @@ import android.widget.Toast;
 
 public class JoinActivity extends AppCompatActivity {
 
-    private Button btnJoin;
+    private Button btnStart;
     private EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
-        btnJoin = (Button) findViewById(R.id.join_button);
+        btnStart = (Button) findViewById(R.id.start_button);
         editText = (EditText) findViewById(R.id.edit_text);
 
         btnStart.setOnClickListener(new View.OnClickListener() {
@@ -38,12 +40,5 @@ public class JoinActivity extends AppCompatActivity {
 
         Toast.makeText(this, "button set", Toast.LENGTH_LONG).show();
     }
-/**
-    public void sendMessage(View view)
-    {
-        String id_string = textView.getText().toString();
-
-    }
-**/
 
 }
