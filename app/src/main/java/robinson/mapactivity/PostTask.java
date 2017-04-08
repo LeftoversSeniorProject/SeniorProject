@@ -37,7 +37,7 @@ class PostTask extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... urls){
 
         try{
-            URL url = new URL("http://10.35.19.212:4567/users");
+            URL url = new URL("http://10.35.16.14:4567/users");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             try{
                 urlConnection.setRequestMethod("POST");
@@ -79,5 +79,9 @@ class PostTask extends AsyncTask<Void, Void, String> {
         Log.i("INFO", response);
         user = GSON.fromJson(response, User.class);
         System.out.println("Post Execute User ID = " + user.getId());
+    }
+
+    public User getUser(){
+        return user;
     }
 }
