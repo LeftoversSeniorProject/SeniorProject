@@ -199,9 +199,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //to do write end game code
                 break;
 
-            case R.id.end_game_button:
-                //to do write end game code
-                break;
+
 
             case R.id.start_button:
                 Intent intent = new Intent(MapsActivity.this, TitleActivity.class);
@@ -228,8 +226,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mCurrLocationMarker.remove();
         }
         Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
-        Toast.makeText(this,Double.toString(getDistance(testUser.getLatitude(), testUser.getLongitude()
-        , location.getLatitude(), location.getLongitude())),Toast.LENGTH_LONG).show();
+
+       // , location.getLatitude(), location.getLongitude())),Toast.LENGTH_LONG).show();
 
         //updates hider's location if it has not yet been updated and they are not seeker
         if(hider.getId() == null && !isSeeker()){
@@ -381,9 +379,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * @param
      */
     public void postHiderLocation(){
-        p1 = new PostTask(hider);
-        p1.execute();
-        hider = p1.getUser();
+        //p1 = new PostTask(hider);
+       // p1.execute();
+       // hider = p1.getUser();
 
     }
 
@@ -402,7 +400,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * @return
      */
     public boolean isSeeker(){
-        return seeker;
+        return false;
+        //return seeker;
     }
 
 }

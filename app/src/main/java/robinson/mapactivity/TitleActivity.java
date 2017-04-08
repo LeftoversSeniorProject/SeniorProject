@@ -11,29 +11,18 @@ import android.widget.Toast;
 import android.support.v7.app.AppCompatActivity;
 
 public class TitleActivity extends AppCompatActivity {
-    private Button btnCreate;
-    private Button btnJoin;
+
+    private Button btnStartGame;
     private Button btnHelp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title);
-        btnCreate = (Button) findViewById(R.id.create_button);
-        //btnCreate.setOnClickListener(this);
-        btnCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //startActivity(new Intent(getApplicationContext(), MapsActivity.class));
-                Intent intent = new Intent(TitleActivity.this, MapsActivity.class);
 
-                startActivity(intent);
-
-            }
-        });
-        btnJoin = (Button) findViewById(R.id.join_button);
+        btnStartGame = (Button) findViewById(R.id.start_game_button);
         //btnJoin.setOnClickListener(this);
-        btnJoin.setOnClickListener(new View.OnClickListener() {
+        btnStartGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //startActivity(new Intent(getApplicationContext(), MapsActivity.class));
