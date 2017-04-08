@@ -36,34 +36,22 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:paddingLeft="100dp"
-        android:paddingRight="100dp"
+        android:padding="100dp"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
 
         <Button
-            android:id="@+id/create_button"
+            android:id="@+id/start_game_button"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
-            android:text="Create"
-            android:textSize="30sp"
-            tools:layout_editor_absoluteX="148dp"
-            tools:layout_editor_absoluteY="60dp" />
-
-        <Button
-            android:id="@+id/join_button"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp"
-            android:text="Join"
+            android:text="Start"
             android:textSize="30sp"
             tools:layout_editor_absoluteX="147dp"
-            tools:layout_editor_absoluteY="160dp" />
+            tools:layout_editor_absoluteY="160dp"
+            tools:text="Start" />
 
         <Button
             android:id="@+id/help_button"
