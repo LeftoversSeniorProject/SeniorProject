@@ -63,7 +63,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private PutTask p2;
     private boolean seeker;
     Gson GSON = new GsonBuilder().create();
-    User hider;
+    private User hider;
+    private String hiderID;
 
     /**
      * onCreate method - sets up map and google API
@@ -86,7 +87,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(map);
         mapFragment.getMapAsync(this);
 
-         hider = new User(null, 0.00, 0.00);
+        //set Hider
+         hiderID = null;
+         hider = new User(hiderID, 0.00, 0.00);
 
         //set Button Listeners
         btnMarco = (Button) findViewById(R.id.marco_button);
@@ -98,12 +101,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Toast.makeText(this,"Set Button Listeners",Toast.LENGTH_SHORT).show();
 
         //Remove buttons if hider
-        /**if(!isSeeker()){
+        if(!isSeeker()){
             btnMarco.setVisibility(View.GONE);
             tagButton.setVisibility(View.GONE);
             btnEndGame.setVisibility(View.GONE);
         }
-         **/
+
     }
 
 
@@ -213,12 +216,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if(hider.getId() == null && !isSeeker()){
             postHiderLocation();
         }
-        Toast.makeText(this,"Posted hider location",Toast.LENGTH_SHORT).show();
 
-        //if(hider.getId() != null && !isSeeker()){
-        //  putHider();
-        //}
 
+        //PUTs hider's location if ID is set and they are not seeker
+        if(hider.getId() != null && !isSeeker()) {
+            putHiderLocation();
+        }
 
         //Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -330,7 +333,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.addMarker(hiderMarker);
             }
         }, 3000);
-        Toast.makeText(this,hider.getId() + " " + hider.getLatitude() + "",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Got hider: " + hider,Toast.LENGTH_SHORT).show();
         
     }
 
@@ -351,11 +354,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void run() {
                 hider = p1.getUser();
-                hider.setLatitude(hider.getLatitude() + .5);
             }
             }, 3000);
 
-
+        Toast.makeText(this,"Posted hider: " + hider,Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -376,6 +378,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 hider = p2.getUser();
             }
         }, 3000);
+
+        Toast.makeText(this,"Put hider: " + hider,Toast.LENGTH_SHORT).show();
 
     }
 
