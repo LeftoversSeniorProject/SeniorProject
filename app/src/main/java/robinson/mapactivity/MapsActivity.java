@@ -44,9 +44,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //declare button variables
     private Button btnEndGame;
     private Button btnMarco;
-    private Button tagButton;
-
-    public static final String API_URL = "http://10.35.18.176:4567";
+    private Button btnTag;
 
 
     //Google declarations
@@ -57,6 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LocationRequest mLocationRequest;
 
 
+
     public String getData;
     private GetTask g1;
     private PostTask p1;
@@ -65,6 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Gson GSON = new GsonBuilder().create();
     private User hider;
     private String hiderID;
+
 
     /**
      * onCreate method - sets up map and google API
@@ -87,18 +87,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(map);
         mapFragment.getMapAsync(this);
 
+
         //set Hider
          hiderID = null;
          hider = new User(hiderID, 0.00, 0.00);
 
+
         //set Button Listeners
         btnMarco = (Button) findViewById(R.id.marco_button);
         btnMarco.setOnClickListener(this);
-        tagButton = (Button) findViewById(R.id.tag_button);
-        tagButton.setOnClickListener(this);
+        btnTag = (Button) findViewById(R.id.tag_button);
+        btnTag.setOnClickListener(this);
         btnEndGame = (Button) findViewById(R.id.end_game_button);
         btnEndGame.setOnClickListener(this);
-        Toast.makeText(this,"Set Button Listeners",Toast.LENGTH_SHORT).show();
+        
+
 
         //Remove buttons if hider
         if(!isSeeker()){
@@ -106,6 +109,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             tagButton.setVisibility(View.GONE);
             btnEndGame.setVisibility(View.GONE);
         }
+
 
     }
 
@@ -187,7 +191,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
 
             case R.id.tag_button:
-                //to do write tage button code
+                //checks distance user and hider
+                checkDistance();
                 break;
 
             case R.id.end_game_button:
@@ -212,6 +217,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mCurrLocationMarker.remove();
         }
 
+
         //updates hider's location if it has not yet been updated and they are not seeker
         if(hider.getId() == null && !isSeeker()){
             postHiderLocation();
@@ -222,6 +228,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if(hider.getId() != null && !isSeeker()) {
             putHiderLocation();
         }
+
 
         //Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -234,6 +241,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
+
     }
 
     /**
@@ -337,6 +345,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         
     }
 
+
     /**
      * Posts hider's current location to the server
      * Returns user and sets hider variable
@@ -389,6 +398,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     public boolean isSeeker(){
         return seeker;
+
+
+    //Gets the distance between two points of latitude and longitude
+    //The return value is in meters.
+    public double getDistance(double lat1, double long1, double lat2, double long2){
+        double radius = 6371;//Earth's radius in km
+        double latDiff = toRadians(lat2 - lat1);
+        double longDiff = toRadians(long2 - long1);
+        double a =
+                Math.sin(latDiff/2) * Math.sin(latDiff/2) +
+                Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
+                Math.sin(longDiff/2) * Math.sin(longDiff/2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        return radius * c * 1000;
+    }
+
+    public void checkDistance(){
+        Location myLocation = mLastLocation;
+        Toast.makeText(this, Double.toString(getDistance(
+                myLocation.getLatitude(), myLocation.getLongitude(), hider.getLatitude(),
+                hider.getLongitude())), Toast.LENGTH_LONG).show();
+
+    }
+
+    private double toRadians(double degrees){
+        return degrees * (Math.PI/180);
+
     }
 
 }
