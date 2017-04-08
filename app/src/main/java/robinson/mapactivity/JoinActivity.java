@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 public class JoinActivity extends AppCompatActivity {
 
-    private Button btnStart;
-    private EditText editText;
+    public Button btnStart;
+    public EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,8 @@ public class JoinActivity extends AppCompatActivity {
             public void onClick(View v) {
                         //startActivity(new Intent(getApplicationContext(), MapsActivity.class));
                         Intent intent = new Intent(JoinActivity.this, MapsActivity.class);
-                        String id_string = editText.getText().toString();
+                        String id_string = "";
+                        id_string = editText.getText().toString();
                         intent.putExtra("hider_id", id_string);
                         startActivity(intent);
 

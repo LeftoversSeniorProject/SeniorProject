@@ -1,5 +1,7 @@
 package robinson.mapactivity;
 
+import android.content.Intent;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -81,7 +83,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        Toast.makeText(this,"layout set",Toast.LENGTH_SHORT).show();
+
+        //Get String from JoinActivity
+        //Bundle bundleID = getIntent().getExtras();
+        Intent intent = getIntent();
+        String hiderID = intent.getStringExtra("hider_id");
+        if(hiderID != null)
+        {
+            hider.setId(hiderID);
+        }
+        Toast.makeText(this,hiderID,Toast.LENGTH_SHORT).show();
 
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
