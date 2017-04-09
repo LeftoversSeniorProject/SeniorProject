@@ -36,7 +36,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:padding="100dp"
+        android:padding="50dp"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
 
@@ -50,8 +50,7 @@
             android:text="Start"
             android:textSize="30sp"
             tools:layout_editor_absoluteX="147dp"
-            tools:layout_editor_absoluteY="160dp"
-            tools:text="Start" />
+            tools:layout_editor_absoluteY="160dp" />
 
         <Button
             android:id="@+id/help_button"
@@ -64,6 +63,18 @@
             android:textSize="30sp"
             tools:layout_editor_absoluteX="148dp"
             tools:layout_editor_absoluteY="271dp" />
+
+        <Button
+            android:id="@+id/credits_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:text="Credits"
+            android:textSize="30sp"
+            tools:layout_editor_absoluteX="147dp"
+            tools:layout_editor_absoluteY="160dp" />
 
 
     </LinearLayout>
