@@ -12,41 +12,31 @@ import android.widget.Toast;
 
 public class JoinActivity extends AppCompatActivity {
 
-    private Button btnJoin;
-    private EditText editText;
+    public Button btnStart;
+    public EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
-        btnJoin = (Button) findViewById(R.id.join_button);
+        btnStart = (Button) findViewById(R.id.start_button);
         editText = (EditText) findViewById(R.id.edit_text);
 
-        btnJoin.setOnClickListener(new View.OnClickListener() {
+        btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.join_button:
                         //startActivity(new Intent(getApplicationContext(), MapsActivity.class));
                         Intent intent = new Intent(JoinActivity.this, MapsActivity.class);
-
-                        String id_string = editText.getText().toString();
+                        String id_string = "";
+                        id_string = editText.getText().toString();
                         intent.putExtra("hider_id", id_string);
                         startActivity(intent);
 
-                        break;
-                }
             }
         });
 
         Toast.makeText(this, "button set", Toast.LENGTH_LONG).show();
     }
-/**
-    public void sendMessage(View view)
-    {
-        String id_string = textView.getText().toString();
 
-    }
-**/
 
 }

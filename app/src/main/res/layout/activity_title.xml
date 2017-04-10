@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
-            android:text="Start"
+            android:text="Start Game"
             android:textColorLink="@color/colorAccent"
             android:textSize="30sp"
             tools:layout_editor_absoluteX="147dp"

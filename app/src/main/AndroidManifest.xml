@@ -8,9 +8,12 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-permission android:name="android.permission.INTERNET" />
+
 
     <application
         android:allowBackup="true"
@@ -28,23 +31,35 @@
              You can define the keys for the debug and release targets in src/debug/ and src/release/. 
         -->
         <meta-data
+
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyCSnsOoL0izOlZNQHlv6Rp7Vec-80kwpwo" />
+
+
 
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Help" />
-        <activity android:name=".TitleActivity"></activity>
+        <activity android:name=".TitleActivity">
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity android:name=".JoinActivity"></activity>
         <activity android:name=".Credits"></activity>
 
     </application>
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"
+        />
+
 
 </manifest>

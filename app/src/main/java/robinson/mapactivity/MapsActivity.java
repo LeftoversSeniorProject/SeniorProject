@@ -1,5 +1,7 @@
 package robinson.mapactivity;
 
+import android.content.Intent;
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -44,7 +46,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //declare button variables
     private Button btnEndGame;
     private Button btnMarco;
+
+  
     private Button btnTag;
+    private Button btnStart;
 
 
     //Google declarations
@@ -56,14 +61,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
+
+
     public String getData;
     private GetTask g1;
     private PostTask p1;
     private PutTask p2;
-    private boolean seeker;
+    private boolean seeker = false;
     Gson GSON = new GsonBuilder().create();
     private User hider;
     private String hiderID;
+    public static final String API_URL = "http://73.160.165.2:4567";
+
 
 
     /**
@@ -75,7 +84,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        Toast.makeText(this,"layout set",Toast.LENGTH_SHORT).show();
+
+        hider = new User(null, 0.00, 0.00);
+
+        //Get String from JoinActivity
+        //Bundle bundleID = getIntent().getExtras();
+        Intent intent = getIntent();
+        String hiderID = intent.getStringExtra("hider_id");
+        if(hiderID != null)
+        {
+            hider.setId(hiderID);
+        }
+        Toast.makeText(this,hiderID,Toast.LENGTH_SHORT).show();
+
+
 
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -86,7 +108,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(map);
         mapFragment.getMapAsync(this);
-
+        //Test line
 
         //set Hider
          hiderID = null;
@@ -96,19 +118,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //set Button Listeners
         btnMarco = (Button) findViewById(R.id.marco_button);
         btnMarco.setOnClickListener(this);
+
+        //btnEndGame = (Button) findViewById(R.id.end_game_button);
+        //btnEndGame.setOnClickListener(this);
+
+        btnStart = (Button) findViewById(R.id.start_button);
+        btnStart.setOnClickListener(this);
+
+        Toast.makeText(this,"Set Button Listeners",Toast.LENGTH_SHORT).show();
+
+   // }
+
         btnTag = (Button) findViewById(R.id.tag_button);
         btnTag.setOnClickListener(this);
         btnEndGame = (Button) findViewById(R.id.end_game_button);
         btnEndGame.setOnClickListener(this);
-        
+
 
 
         //Remove buttons if hider
         if(!isSeeker()){
             btnMarco.setVisibility(View.GONE);
-            tagButton.setVisibility(View.GONE);
+            btnTag.setVisibility(View.GONE);
             btnEndGame.setVisibility(View.GONE);
         }
+
 
 
     }
@@ -199,6 +233,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //to do write end game code
                 break;
 
+
+
+            case R.id.start_button:
+                Intent intent = new Intent(MapsActivity.this, TitleActivity.class);
+                //intent.putExtra("latitute", 34.8098080980);
+                // intent.putExtra("longitude", 67.09098898);
+                startActivity(intent);
+                break;
+
         }
 
     }
@@ -212,10 +255,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onLocationChanged(Location location)
     {
-            mLastLocation = location;
+
+        mLastLocation = location;
+
+          
+
         if (mCurrLocationMarker != null) {
             mCurrLocationMarker.remove();
         }
+        Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
+
+       // , location.getLatitude(), location.getLongitude())),Toast.LENGTH_LONG).show();
 
 
         //updates hider's location if it has not yet been updated and they are not seeker
@@ -240,7 +290,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
         mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
+
 
     }
 
@@ -346,16 +398,42 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
+
+/**
+    //Gets the distance between two points of latitude and longitude
+    //The return value is in meters.
+    public double getDistance(double lat1, double long1, double lat2, double long2){
+        double radius = 6371;//Earth's radius in km
+        double latDiff = toRadians(lat2 - lat1);
+        double longDiff = toRadians(long2 - long1);
+        double a =
+                Math.sin(latDiff/2) * Math.sin(latDiff/2) +
+                Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
+                Math.sin(longDiff/2) * Math.sin(longDiff/2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        return radius * c * 1000;
+    }
+
+    private double toRadians(double degrees){
+        return degrees * (Math.PI/180);
+    }
+**/
+
+
+
     /**
      * Posts hider's current location to the server
      * Returns user and sets hider variable
      * @param
      */
     public void postHiderLocation(){
+
+
         hider.setLongitude(mLastLocation.getLongitude());
         hider.setLatitude(mLastLocation.getLatitude());
         p1 = new PostTask(hider);
         p1.execute();
+
 
         //Delay for Post
         final Handler handler = new Handler();
@@ -396,9 +474,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * checks if user is seeker
      * @return
      */
-    public boolean isSeeker(){
+
+    public boolean isSeeker() {
         return seeker;
 
+    }
 
     //Gets the distance between two points of latitude and longitude
     //The return value is in meters.

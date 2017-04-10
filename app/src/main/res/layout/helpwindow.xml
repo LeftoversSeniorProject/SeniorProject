@@ -10,8 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:gravity="center"
-        android:text="Welcome to Marco Polo App!"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:text="Welcome to Marco Polo App!" />
 
     <!-- Broke it up into multiple instructions instead of one paragraph-->
     <TextView
@@ -20,7 +20,7 @@
         android:layout_weight="0.75"
         android:gravity="left|center"
         android:orientation="vertical"
-        android:text="--This game requires two players." />
+        android:text="--This game requires two players."/>
 
     <TextView
         android:layout_width="match_parent"
@@ -28,23 +28,21 @@
         android:layout_weight="0.68"
         android:gravity="left|center"
         android:orientation="vertical"
-        android:text="--One player (the seeker) tries to catch the other (the hider)." />
-
+        android:text="--One player (the seeker) tries to catch the other (the hider)."/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="left|center"
         android:orientation="vertical"
-        android:text="--The seeker must get close enough to hider and then press the CATCH button to win the game." />
-
+        android:text="--The seeker must get close enough to hider and then press the CATCH button to win the game."/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="left|center"
         android:orientation="vertical"
-        android:text="--The seeker can request the hider's location a limited number of times." />
+        android:text="--The seeker can request the hider's location a limited number of times."/>
 
     <TextView
         android:id="@+id/textView2"
@@ -61,8 +59,7 @@
         android:layout_weight="1"
         android:gravity="left|center"
         android:orientation="vertical"
-        android:text="--To begin a game, the seeker should press the START GAME button." />
-
+        android:text="--To begin a game, the seeker should press the START GAME button."/>
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -71,7 +68,7 @@
         android:gravity="left|center"
         android:orientation="vertical"
         android:text="--The hider should press the JOIN GAME button and enter the seeker's information." />
-
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
