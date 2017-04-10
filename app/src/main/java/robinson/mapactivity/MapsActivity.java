@@ -95,10 +95,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             hider.setId(hiderID);
             seeker = true;
         }
-        Toast.makeText(this,hiderID,Toast.LENGTH_SHORT).show();
-
-
-
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
@@ -122,10 +118,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-        //Remove buttons if hider
+        //Remove buttons if hider and ID field if seeker
         if(!isSeeker()){
             btnMarco.setVisibility(View.GONE);
             btnTag.setVisibility(View.GONE);
+        }
+        else{
+            txtID.setVisibility(View.GONE);
         }
 
 
@@ -215,11 +214,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
 
             case R.id.end_game_button:
-                Intent intent = new Intent(MapsActivity.this, TitleActivity.class);
-                //intent.putExtra("latitute", 34.8098080980);
-                // intent.putExtra("longitude", 67.09098898);
-                startActivity(intent);
-                LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+               endGame();
                 break;
         }
 
@@ -357,7 +352,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void run(){
                 hider = g1.getUser();
-                System.out.println(hider.getLatitude());
+                //check that hider exists in server
+                if(hider.getLatitude() == 0 && hider.getLongitude() == 0){
+                    Toast.makeText(MapsActivity.this,"Hider does not exist",Toast.LENGTH_SHORT).show();
+                    endGame();
+                }
+                else{
+                    Toast.makeText(MapsActivity.this,"Got hider: " + hider,Toast.LENGTH_SHORT).show();
+                }
                 MarkerOptions hiderMarker = new MarkerOptions();
                 LatLng hiderLocation = new LatLng(hider.getLatitude(), hider.getLongitude());
                 hiderMarker.position(hiderLocation);
@@ -365,7 +367,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.addMarker(hiderMarker);
             }
         }, 3000);
-        Toast.makeText(this,"Got hider: " + hider,Toast.LENGTH_SHORT).show();
+
         
     }
 
@@ -390,13 +392,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void run() {
                 hider = p1.getUser();
+                Toast.makeText(MapsActivity.this,"Posted hider" + hider,Toast.LENGTH_SHORT).show();
+                if(txtID.getText().equals("")){
+                    txtID.setText("ID: " + hider.getId());
+                }
             }
             }, 3000);
-
-        Toast.makeText(this,"Posted hider: " + hider,Toast.LENGTH_SHORT).show();
-        if(txtID.getText().equals("")){
-            txtID.setText("ID: " + hider.getId());
-        }
     }
 
     /**
@@ -415,10 +416,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void run() {
                 hider = p2.getUser();
+                Toast.makeText(MapsActivity.this,"Put hider: " + hider,Toast.LENGTH_SHORT).show();
             }
         }, 3000);
 
-        Toast.makeText(this,"Put hider: " + hider,Toast.LENGTH_SHORT).show();
+
 
     }
 
@@ -470,6 +472,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double toRadians(double degrees){
         return degrees * (Math.PI/180);
 
+    }
+
+    /**
+     * Stops game and returns player to title screen
+     */
+    public void endGame(){
+        Intent intent = new Intent(MapsActivity.this, TitleActivity.class);
+        startActivity(intent);
+        //stop location updates
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
 
 }
