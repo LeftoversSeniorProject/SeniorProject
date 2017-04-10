@@ -2,15 +2,9 @@ package robinson.mapactivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
-
-import static robinson.mapactivity.R.layout.activity_maps;
 
 /**
  * Created by Michael on 3/8/2017.
@@ -37,7 +31,7 @@ public class Help extends MapsActivity implements View.OnClickListener {
         switch(v.getId()) {
 
             case R.id.close_button:
-                startActivity(new Intent(getApplicationContext(), MapsActivity.class));
+                startActivity(new Intent(getApplicationContext(), TitleActivity.class));
             break;
         }
     }

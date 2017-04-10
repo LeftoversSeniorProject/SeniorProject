@@ -46,10 +46,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //declare button variables
     private Button btnEndGame;
     private Button btnMarco;
-
-  
     private Button btnTag;
-    private Button btnStart;
+
 
 
     //Google declarations
@@ -71,6 +69,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Gson GSON = new GsonBuilder().create();
     private User hider;
     public static final String API_URL = "http://73.160.165.2:4567";
+    private static final int WIN_DISTANCE = 10;
 
 
 
@@ -114,17 +113,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //set Button Listeners
         btnMarco = (Button) findViewById(R.id.marco_button);
         btnMarco.setOnClickListener(this);
-
-        //btnEndGame = (Button) findViewById(R.id.end_game_button);
-        //btnEndGame.setOnClickListener(this);
-
-        btnStart = (Button) findViewById(R.id.start_button);
-        btnStart.setOnClickListener(this);
-
-        Toast.makeText(this,"Set Button Listeners",Toast.LENGTH_SHORT).show();
-
-   // }
-
         btnTag = (Button) findViewById(R.id.tag_button);
         btnTag.setOnClickListener(this);
         btnEndGame = (Button) findViewById(R.id.end_game_button);
@@ -136,7 +124,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if(!isSeeker()){
             btnMarco.setVisibility(View.GONE);
             btnTag.setVisibility(View.GONE);
-            btnEndGame.setVisibility(View.GONE);
         }
 
 
@@ -226,18 +213,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
 
             case R.id.end_game_button:
-                //to do write end game code
-                break;
-
-
-
-            case R.id.start_button:
                 Intent intent = new Intent(MapsActivity.this, TitleActivity.class);
                 //intent.putExtra("latitute", 34.8098080980);
                 // intent.putExtra("longitude", 67.09098898);
                 startActivity(intent);
                 break;
-
         }
 
     }
@@ -259,12 +239,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (mCurrLocationMarker != null) {
             mCurrLocationMarker.remove();
         }
-        Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
-
-       // , location.getLatitude(), location.getLongitude())),Toast.LENGTH_LONG).show();
-
-
-        //updates hider's location if it has not yet been updated and they are not seeker
+               //updates hider's location if it has not yet been updated and they are not seeker
         if(hider.getId() == null && !isSeeker()){
             postHiderLocation();
         }
@@ -394,29 +369,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-
-/**
-    //Gets the distance between two points of latitude and longitude
-    //The return value is in meters.
-    public double getDistance(double lat1, double long1, double lat2, double long2){
-        double radius = 6371;//Earth's radius in km
-        double latDiff = toRadians(lat2 - lat1);
-        double longDiff = toRadians(long2 - long1);
-        double a =
-                Math.sin(latDiff/2) * Math.sin(latDiff/2) +
-                Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
-                Math.sin(longDiff/2) * Math.sin(longDiff/2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        return radius * c * 1000;
-    }
-
-    private double toRadians(double degrees){
-        return degrees * (Math.PI/180);
-    }
-**/
-
-
-
     /**
      * Posts hider's current location to the server
      * Returns user and sets hider variable
@@ -490,11 +442,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return radius * c * 1000;
     }
 
+    /**
+     * Checks distance between user and hider
+     * You win if distance is less than WIN_DISTANCE
+     */
     public void checkDistance(){
         Location myLocation = mLastLocation;
         Toast.makeText(this, Double.toString(getDistance(
                 myLocation.getLatitude(), myLocation.getLongitude(), hider.getLatitude(),
-                hider.getLongitude())), Toast.LENGTH_LONG).show();
+                hider.getLongitude())), Toast.LENGTH_SHORT).show();
+        if(getDistance(myLocation.getLatitude(), myLocation.getLongitude(), hider.getLatitude(),
+                hider.getLongitude()) <= WIN_DISTANCE){
+            Toast.makeText(this, "YOU WIN!", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(MapsActivity.this, TitleActivity.class);
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(this, "You are not close enough to hider!", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
