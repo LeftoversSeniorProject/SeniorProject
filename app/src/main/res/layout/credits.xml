@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background= "#FFC6D5">
+    android:theme="@style/PinkTheme">
 
     <Space
         android:layout_width="match_parent"
@@ -17,7 +17,6 @@
         android:paddingTop="70dp"
         android:text="This project was created by:\nTim Horner\nMichael Ginn\nTinh Lam\nChris Curreri\nJay Adirzone\nViet Le\nAbigail Rita"
         android:textAlignment="center"
-        android:textColor="#ffffff"
         android:textSize="24sp" />
 
     <Space
