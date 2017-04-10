@@ -37,6 +37,14 @@
             tools:layout_editor_absoluteX="148dp"
             tools:layout_editor_absoluteY="148dp" />
 
+        <TextView
+            android:id="@+id/join_instructions_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="20dp"
+            android:text=
+                "To start the game as a hider just click the Start button. Your ID will be provided on the Map. To join the game as a seeker, you must enter the hider's ID and then click start." />
+
 
     </LinearLayout>
 
