@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:text = "ID = "
+                android:text = ""
                 android:textColor="@drawable/common_plus_signin_btn_text_dark"
                 android:textSize="35dp"/>
 
