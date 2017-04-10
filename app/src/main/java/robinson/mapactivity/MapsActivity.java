@@ -70,7 +70,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private boolean seeker = false;
     Gson GSON = new GsonBuilder().create();
     private User hider;
-    private String hiderID;
     public static final String API_URL = "http://73.160.165.2:4567";
 
 
@@ -94,6 +93,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if(hiderID != null)
         {
             hider.setId(hiderID);
+            seeker = true;
         }
         Toast.makeText(this,hiderID,Toast.LENGTH_SHORT).show();
 
@@ -109,10 +109,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(map);
         mapFragment.getMapAsync(this);
         //Test line
-
-        //set Hider
-         hiderID = null;
-         hider = new User(hiderID, 0.00, 0.00);
 
 
         //set Button Listeners
