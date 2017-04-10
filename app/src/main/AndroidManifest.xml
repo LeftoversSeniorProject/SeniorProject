@@ -43,6 +43,8 @@
         <activity android:name=".Help" />
         <activity android:name=".TitleActivity"></activity>
         <activity android:name=".JoinActivity"></activity>
+        <activity android:name=".Credits"></activity>
+
     </application>
 
 </manifest>
