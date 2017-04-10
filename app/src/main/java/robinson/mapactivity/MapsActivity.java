@@ -60,10 +60,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GetTask g1;
     private PostTask p1;
     private PutTask p2;
-    private boolean seeker;
+    private boolean seeker = false;
     Gson GSON = new GsonBuilder().create();
     private User hider;
     private String hiderID;
+    public static final String API_URL = "http://73.160.165.2:4567";
 
 
     /**
@@ -100,13 +101,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnTag.setOnClickListener(this);
         btnEndGame = (Button) findViewById(R.id.end_game_button);
         btnEndGame.setOnClickListener(this);
-        
+
 
 
         //Remove buttons if hider
         if(!isSeeker()){
             btnMarco.setVisibility(View.GONE);
-            tagButton.setVisibility(View.GONE);
+            btnTag.setVisibility(View.GONE);
             btnEndGame.setVisibility(View.GONE);
         }
 
@@ -396,9 +397,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * checks if user is seeker
      * @return
      */
-    public boolean isSeeker(){
+    public boolean isSeeker() {
         return seeker;
-
+    }
 
     //Gets the distance between two points of latitude and longitude
     //The return value is in meters.

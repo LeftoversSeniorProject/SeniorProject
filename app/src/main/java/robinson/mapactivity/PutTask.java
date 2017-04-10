@@ -37,7 +37,7 @@ class PutTask extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... urls){
 
         try{
-            URL url = new URL("http://10.35.19.212:4567/users/" + id);
+            URL url = new URL(MapsActivity.API_URL + "/users/" + id);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             try{
                 urlConnection.setRequestMethod("PUT");

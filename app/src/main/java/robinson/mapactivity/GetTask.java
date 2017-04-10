@@ -37,7 +37,7 @@ class GetTask extends AsyncTask<Void, Void, String> {
         //do validation here
 
         try{
-            URL url = new URL("http://10.35.16.14:4567/users/" + id);
+            URL url = new URL(MapsActivity.API_URL + "/users/" + id);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             System.out.println("Connected to server");
             try{
