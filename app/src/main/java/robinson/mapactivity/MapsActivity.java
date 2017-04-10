@@ -217,6 +217,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //intent.putExtra("latitute", 34.8098080980);
                 // intent.putExtra("longitude", 67.09098898);
                 startActivity(intent);
+                LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
                 break;
         }
 
@@ -262,7 +263,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
 
 
     }
