@@ -39,5 +39,11 @@ public class User {
         this.longitude = longitude;
     }
 
+    public String toString(){
+        return "id: " + id + " " + latitude + " " + longitude;
+    }
+
+
+
 
 }
