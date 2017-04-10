@@ -1,6 +1,6 @@
 package robinson.mapactivity;
 
-
+import android.content.Intent;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -92,6 +92,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             hider.setId(hiderID);
         }
         Toast.makeText(this,hiderID,Toast.LENGTH_SHORT).show();
+
+
 
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

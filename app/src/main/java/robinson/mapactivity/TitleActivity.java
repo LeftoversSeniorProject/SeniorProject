@@ -22,12 +22,10 @@ public class TitleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title);
 
-        btnStartGame = (Button) findViewById(R.id.start_game_button);
-        //btnJoin.setOnClickListener(this);
-        btnStartGame.setOnClickListener(new View.OnClickListener() {
+      
 
-        btnStart = (Button) findViewById(R.id.start_game_button);
-        btnStart.setOnClickListener(new View.OnClickListener() {
+        btnStartGame = (Button) findViewById(R.id.start_game_button);
+        btnStartGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TitleActivity.this, JoinActivity.class);
