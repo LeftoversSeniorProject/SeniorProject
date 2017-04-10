@@ -1,7 +1,6 @@
 package robinson.mapactivity;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -45,20 +44,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //declare button variables
     private Button btnEndGame;
     private Button btnMarco;
-    private Button tagButton;
     private Button btnTag;
-
-    private Button  btnNewGame;
-    private Button btnHelp;
-
-    private Button btnStart;
 
 
     public static final String API_URL = "http://10.35.18.176:4567";
 
 
-
-
+    public String getData;
+    private GetTask g1;
     Gson GSON = new GsonBuilder().create();
     User hider = new User("4", 0.00, 0.00);
     User testUser = new User("1", 39.7111317, -75.1200462);
@@ -69,8 +62,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
-    public String getData;
-    private GetTask g1;
+
+
 
     /**
      * onCreate method - sets up map and google API
@@ -98,17 +91,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //set Button Listeners
         btnMarco = (Button) findViewById(R.id.marco_button);
         btnMarco.setOnClickListener(this);
+        btnTag = (Button) findViewById(R.id.tag_button);
+        btnTag.setOnClickListener(this);
         btnEndGame = (Button) findViewById(R.id.end_game_button);
         btnEndGame.setOnClickListener(this);
-
-        btnStart = (Button) findViewById(R.id.start_button);
-        btnStart.setOnClickListener(this);
-
-
-
         Toast.makeText(this,"Set Button Listeners",Toast.LENGTH_SHORT).show();
-
-
 
 
     }
@@ -192,20 +179,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
 
             case R.id.tag_button:
-                //to do write tage button code
+                //checks distance user and hider
+                checkDistance();
                 break;
 
             case R.id.end_game_button:
                 //to do write end game code
-                break;
-
-
-
-            case R.id.start_button:
-                Intent intent = new Intent(MapsActivity.this, TitleActivity.class);
-                //intent.putExtra("latitute", 34.8098080980);
-                // intent.putExtra("longitude", 67.09098898);
-                startActivity(intent);
                 break;
 
         }
@@ -227,14 +206,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
 
-       // , location.getLatitude(), location.getLongitude())),Toast.LENGTH_LONG).show();
-
-        //updates hider's location if it has not yet been updated and they are not seeker
-        if(hider.getId() == null && !isSeeker()){
-            updateHiderLocation();
-        }
-
-
         //Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
@@ -246,11 +217,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-
-        //stop location updates
-        if (mGoogleApiClient != null) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        }
     }
 
     /**
@@ -353,7 +319,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-/**
     //Gets the distance between two points of latitude and longitude
     //The return value is in meters.
     public double getDistance(double lat1, double long1, double lat2, double long2){
@@ -368,40 +333,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return radius * c * 1000;
     }
 
+    public void checkDistance(){
+        Location myLocation = mLastLocation;
+        Toast.makeText(this, Double.toString(getDistance(
+                myLocation.getLatitude(), myLocation.getLongitude(), hider.getLatitude(),
+                hider.getLongitude())), Toast.LENGTH_LONG).show();
+
+    }
+
     private double toRadians(double degrees){
         return degrees * (Math.PI/180);
-    }
-**/
-
-
-    /**
-     * Posts hider's current location to the server
-     * @param
-     */
-    public void postHiderLocation(){
-        //p1 = new PostTask(hider);
-       // p1.execute();
-       // hider = p1.getUser();
-
-    }
-
-    /**
-     * Update hider's current location with most recent location update
-     *
-     */
-    public void updateHiderLocation(){
-            hider.setLongitude(mLastLocation.getLongitude());
-            hider.setLatitude(mLastLocation.getLatitude());
-            postHiderLocation();
-    }
-
-    /**
-     * checks if user is seeker
-     * @return
-     */
-    public boolean isSeeker(){
-        return false;
-        //return seeker;
     }
 
 }
