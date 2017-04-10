@@ -37,7 +37,7 @@ class PostTask extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... urls){
 
         try{
-            URL url = new URL("http://10.35.17.237:4567/users");
+            URL url = new URL(MapsActivity.API_URL + "/users");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             try{
                 urlConnection.setRequestMethod("POST");

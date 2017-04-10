@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="robinson.mapactivity.MapsActivity"
+
     tools:layout="@layout/activity_maps">
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
@@ -30,11 +31,13 @@
             android:layout_height="wrap_content"
             android:text="End Game"/>
 
+
             <Button
                 android:id="@+id/start_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Start"/>
+
     </LinearLayout>
 
     </fragment>
