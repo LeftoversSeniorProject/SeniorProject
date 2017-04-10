@@ -49,24 +49,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
   
     private Button btnTag;
-
-   // private Button  btnNewGame;
-    private Button btnHelp;
-
     private Button btnStart;
 
-
-    public static final String API_URL = "http://10.35.18.176:4567";
-
-
-
-
-
-
-
-    Gson GSON = new GsonBuilder().create();
-    User hider = new User("4", 0.00, 0.00);
-    User testUser = new User("1", 39.7111317, -75.1200462);
 
     //Google declarations
     private GoogleMap mMap;
@@ -100,6 +84,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        hider = new User(null, 0.00, 0.00);
 
         //Get String from JoinActivity
         //Bundle bundleID = getIntent().getExtras();
