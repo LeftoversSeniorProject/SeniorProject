@@ -89,7 +89,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Bundle bundleID = getIntent().getExtras();
         Intent intent = getIntent();
         String hiderID = intent.getStringExtra("hider_id");
-        if(hiderID != null)
+        if(!hiderID.equals(""))
         {
             hider.setId(hiderID);
             seeker = true;
