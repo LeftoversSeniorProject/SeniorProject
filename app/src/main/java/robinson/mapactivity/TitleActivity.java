@@ -1,14 +1,10 @@
 package robinson.mapactivity;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.content.Intent;
 import android.os.Bundle;
-
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-import android.support.v7.app.AppCompatActivity;
 //pushing
 public class TitleActivity extends AppCompatActivity {
 
@@ -52,6 +48,5 @@ public class TitleActivity extends AppCompatActivity {
             }
         });
 
-        Toast.makeText(this, "button set", Toast.LENGTH_LONG).show();
     }
 }

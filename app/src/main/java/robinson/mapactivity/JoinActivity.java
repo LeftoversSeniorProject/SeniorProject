@@ -2,13 +2,11 @@ package robinson.mapactivity;
 
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import android.widget.Toast;
 
 public class JoinActivity extends AppCompatActivity {
 
@@ -35,7 +33,6 @@ public class JoinActivity extends AppCompatActivity {
             }
         });
 
-        Toast.makeText(this, "button set", Toast.LENGTH_LONG).show();
     }
 
 

@@ -1,8 +1,7 @@
 package robinson.mapactivity;
 
-import android.content.Intent;
-
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -15,6 +14,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -47,6 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Button btnEndGame;
     private Button btnMarco;
     private Button btnTag;
+    private TextView txtID;
 
 
 
@@ -117,6 +118,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnTag.setOnClickListener(this);
         btnEndGame = (Button) findViewById(R.id.end_game_button);
         btnEndGame.setOnClickListener(this);
+        txtID=(TextView) findViewById(R.id.idText);
 
 
 
@@ -234,8 +236,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     {
 
         mLastLocation = location;
-
-          
 
         if (mCurrLocationMarker != null) {
             mCurrLocationMarker.remove();
@@ -394,6 +394,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }, 3000);
 
         Toast.makeText(this,"Posted hider: " + hider,Toast.LENGTH_SHORT).show();
+        if(txtID.getText().equals("")){
+            txtID.setText("ID: " + hider.getId());
+        }
     }
 
     /**
