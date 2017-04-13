@@ -6,4 +6,5 @@
     <dimen name="buttonHeight">50sp</dimen>
     <dimen name="buttonPaddingTop">5sp</dimen>
     <dimen name="buttonPaddingBottom">5sp</dimen>
+    <dimen name="buttonTextSize">25sp</dimen>
 </resources>

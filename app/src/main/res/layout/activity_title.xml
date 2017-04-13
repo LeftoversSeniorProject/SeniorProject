@@ -48,7 +48,7 @@
             android:paddingTop="@dimen/buttonPaddingTop"
             android:text="Start Game"
             android:textColorLink="@color/colorAccent"
-            android:textSize="25sp"
+            android:textSize="@dimen/buttonTextSize"
             tools:layout_editor_absoluteX="147dp"
             tools:layout_editor_absoluteY="160dp" />
 
@@ -59,7 +59,7 @@
             android:paddingBottom="@dimen/buttonPaddingBottom"
             android:paddingTop="@dimen/buttonPaddingTop"
             android:text="Help"
-            android:textSize="25sp"
+            android:textSize="@dimen/buttonTextSize"
             tools:layout_editor_absoluteX="148dp"
             tools:layout_editor_absoluteY="160dp" />
 
@@ -70,7 +70,7 @@
             android:paddingBottom="@dimen/buttonPaddingBottom"
             android:paddingTop="@dimen/buttonPaddingTop"
             android:text="Credits"
-            android:textSize="25sp"
+            android:textSize="@dimen/buttonTextSize"
             tools:layout_editor_absoluteX="147dp"
             tools:layout_editor_absoluteY="160dp" />
 
