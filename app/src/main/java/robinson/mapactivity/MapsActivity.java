@@ -146,8 +146,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
-        Toast.makeText(this,"setMapType",Toast.LENGTH_SHORT).show();
-
 
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -155,7 +153,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 buildGoogleApiClient();
-                Toast.makeText(this,"buildGoogleApiClient",Toast.LENGTH_SHORT).show();
                 mMap.setMyLocationEnabled(true);
             }
         } else {
@@ -357,9 +354,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Toast.makeText(MapsActivity.this,"Hider does not exist",Toast.LENGTH_SHORT).show();
                     endGame();
                 }
-                else{
-                    Toast.makeText(MapsActivity.this,"Got hider: " + hider,Toast.LENGTH_SHORT).show();
-                }
                 MarkerOptions hiderMarker = new MarkerOptions();
                 LatLng hiderLocation = new LatLng(hider.getLatitude(), hider.getLongitude());
                 hiderMarker.position(hiderLocation);
@@ -391,7 +385,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void run() {
                 hider = p1.getUser();
-                Toast.makeText(MapsActivity.this,"Posted hider" + hider,Toast.LENGTH_SHORT).show();
             }
             }, 3000);
     }
@@ -412,7 +405,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void run() {
                 hider = p2.getUser();
-                Toast.makeText(MapsActivity.this,"Put hider: " + hider,Toast.LENGTH_SHORT).show();
                 if(txtID.getText().equals("")){
                     txtID.setText("ID: " + hider.getId());
                 }
