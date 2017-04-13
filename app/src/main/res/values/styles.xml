@@ -5,7 +5,7 @@
         <!-- Android API 14+. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+       <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="PinkTheme" parent= "AppTheme">
@@ -20,8 +20,12 @@
         <item name = "android:buttonStyle">@style/BlueButton</item>
     </style>
 
-    <style name= "BlueButton" parent= "Base.Widget.AppCompat.Button.Small">
+    <style name= "BlueButton" parent= "Base.Widget.AppCompat.Button.Colored">
         <item name = "android:background">#0E2DDF</item>
     </style>
+
+
+
+
 
 </resources>
