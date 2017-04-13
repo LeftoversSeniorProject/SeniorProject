@@ -9,7 +9,7 @@ import android.widget.Button;
 public class TitleActivity extends AppCompatActivity {
 
     private Button btnStartGame;
-    private Button btnStart;
+    //private Button btnStart;
     private Button btnHelp;
     private Button btnCredits;
 
@@ -18,7 +18,7 @@ public class TitleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title);
 
-      
+
 
         btnStartGame = (Button) findViewById(R.id.start_game_button);
         btnStartGame.setOnClickListener(new View.OnClickListener() {
