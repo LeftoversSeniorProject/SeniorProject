@@ -14,10 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:paddingTop="70dp"
-        android:text="This project was created by:\nTim Horner\nMichael Ginn\nTinh Lam\nChris Curreri\nJay Adirzone\nViet Le\nAbigail Rita"
+        android:paddingTop="20dp"
+        android:text="This project was created by:\nTim Horner\nMichael Ginn\nTinh Lam\nChris Curreri\nJay Adirzone\nViet Le\nAbigail Palen"
         android:textAlignment="center"
-        android:textSize="24sp" />
+        android:textSize="21sp" />
 
     <Space
         android:layout_width="match_parent"
