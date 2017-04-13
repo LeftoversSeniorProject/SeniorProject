@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- xxhdpi screen density dimensions. -->
+    <!-- mdpi screen density dimensions. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="textSize">50sp</dimen>
     <dimen name="buttonHeight">80sp</dimen>
-    <dimen name="buttonTextSize">40sp</dimen>
     <dimen name="buttonPaddingTop">5sp</dimen>
     <dimen name="buttonPaddingBottom">5sp</dimen>
+    <dimen name="buttonTextSize">40sp</dimen>
 </resources>
