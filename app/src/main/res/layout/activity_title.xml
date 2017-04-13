@@ -23,7 +23,7 @@
         android:layout_weight="2"
         android:text="Street Marco Polo"
         android:textAlignment="center"
-        android:textSize="50sp" />
+        android:textSize="@dimen/textSize" />
 
     <Space
         android:layout_width="match_parent"
@@ -36,41 +36,41 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:padding="50dp"
+        android:padding="10dp"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
 
         <Button
             android:id="@+id/start_game_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp"
+            android:layout_height="@dimen/buttonHeight"
+            android:paddingBottom="@dimen/buttonPaddingBottom"
+            android:paddingTop="@dimen/buttonPaddingTop"
             android:text="Start Game"
             android:textColorLink="@color/colorAccent"
-            android:textSize="30sp"
+            android:textSize="@dimen/buttonTextSize"
             tools:layout_editor_absoluteX="147dp"
             tools:layout_editor_absoluteY="160dp" />
 
         <Button
             android:id="@+id/help_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp"
+            android:layout_height="@dimen/buttonHeight"
+            android:paddingBottom="@dimen/buttonPaddingBottom"
+            android:paddingTop="@dimen/buttonPaddingTop"
             android:text="Help"
-            android:textSize="30sp"
+            android:textSize="@dimen/buttonTextSize"
             tools:layout_editor_absoluteX="148dp"
-            tools:layout_editor_absoluteY="271dp" />
+            tools:layout_editor_absoluteY="160dp" />
 
         <Button
             android:id="@+id/credits_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp"
+            android:layout_height="@dimen/buttonHeight"
+            android:paddingBottom="@dimen/buttonPaddingBottom"
+            android:paddingTop="@dimen/buttonPaddingTop"
             android:text="Credits"
-            android:textSize="30sp"
+            android:textSize="@dimen/buttonTextSize"
             tools:layout_editor_absoluteX="147dp"
             tools:layout_editor_absoluteY="160dp" />
 
