@@ -385,7 +385,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         p1 = new PostTask(hider);
         p1.execute();
 
-
         //Delay for Post
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -393,9 +392,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void run() {
                 hider = p1.getUser();
                 Toast.makeText(MapsActivity.this,"Posted hider" + hider,Toast.LENGTH_SHORT).show();
-                if(txtID.getText().equals("")){
-                    txtID.setText("ID: " + hider.getId());
-                }
             }
             }, 3000);
     }
@@ -417,6 +413,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void run() {
                 hider = p2.getUser();
                 Toast.makeText(MapsActivity.this,"Put hider: " + hider,Toast.LENGTH_SHORT).show();
+                if(txtID.getText().equals("")){
+                    txtID.setText("ID: " + hider.getId());
+                }
             }
         }, 3000);
 
