@@ -35,23 +35,24 @@
         android:layout_weight="1"
         android:gravity="left|center"
         android:orientation="vertical"
-        android:text="--The seeker must get close enough to hider and then press the CATCH button to win the game."/>
+        android:text="--The seeker must get within about 8 meters of the hider and then press the TAG button to win the game."/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="left|center"
         android:orientation="vertical"
-        android:text="--The seeker can request the hider's location a limited number of times."/>
+        android:text="--The seeker can request the hider's location any number number of times."/>
 
-    <TextView
+   <!-- <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="left|center"
         android:orientation="vertical"
-        android:text="--After using all of their location-checks, the hider can continue the game or concede." />
+        android:text="After using all of their location-checks, the hider can continue the game or concede." />
+        Left this in just in case we want it back.-->
 
     <TextView
         android:layout_width="match_parent"
@@ -59,7 +60,7 @@
         android:layout_weight="1"
         android:gravity="left|center"
         android:orientation="vertical"
-        android:text="--To begin a game, the seeker should press the START GAME button."/>
+        android:text="--To begin a game, the hider should press the START GAME button, and then press start without entering an ID."/>
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -67,7 +68,7 @@
         android:layout_weight="1"
         android:gravity="left|center"
         android:orientation="vertical"
-        android:text="--The hider should press the JOIN GAME button and enter the seeker's information." />
+        android:text="--The seeker should also press the START GAME button and enter the hider's ID. The hider can see their ID at the top of their screen." />
     
     <LinearLayout
         android:layout_width="match_parent"
