@@ -7,7 +7,7 @@
     android:visibility="visible"
     android:baselineAligned="false"
     android:orientation="vertical"
-    android:theme="@style/PinkTheme"
+    android:theme="@style/BlueTheme"
     tools:context="robinson.mapactivity.TitleActivity">
 
     <Space
@@ -47,7 +47,6 @@
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
             android:text="Start Game"
-            android:textColorLink="@color/colorAccent"
             android:textSize="30sp"
             tools:layout_editor_absoluteX="147dp"
             tools:layout_editor_absoluteY="160dp" />

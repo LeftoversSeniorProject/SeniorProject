@@ -8,20 +8,62 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- application styles -->
     <style name="PinkTheme" parent= "AppTheme">
-        <item name = "android:background">#FFC6D5</item>
-        <item name = "android:textColor">#FFFFFF</item>
-        <item name = "android:buttonStyle">@style/Base.Widget.AppCompat.Button.Colored</item>
+        <item name = "android:background">@color/Light_Pink</item>
+        <item name = "android:textColor">@color/White</item>
+        <item name = "android:buttonStyle">@style/PinkButton</item>
     </style>
 
     <style name="BlueTheme" parent= "AppTheme">
-        <item name = "android:background">#6FA7EE</item>
-        <item name = "android:textColor">#FFFFFF</item>
+        <item name = "android:background">@color/Light_Blue</item>
+        <item name = "android:textColor">@color/White</item>
         <item name = "android:buttonStyle">@style/BlueButton</item>
     </style>
 
-    <style name= "BlueButton" parent= "Base.Widget.AppCompat.Button.Small">
-        <item name = "android:background">#0E2DDF</item>
+    <style name="YellowTheme" parent= "AppTheme">
+        <item name = "android:background">@color/Light_Yellow</item>
+        <item name = "android:textColor">@color/White</item>
+        <item name = "android:buttonStyle">@style/YellowButton</item>
+    </style>
+
+    <style name="GreenTheme" parent= "AppTheme">
+        <item name = "android:background">@color/Light_Green</item>
+        <item name = "android:textColor">@color/White</item>
+        <item name = "android:buttonStyle">@style/GreenButton</item>
+    </style>
+
+    <style name="RedTheme" parent= "AppTheme">
+        <item name = "android:background">@color/Light_Red</item>
+        <item name = "android:textColor">@color/White</item>
+        <item name = "android:buttonStyle">@style/RedButton</item>
+    </style>
+
+
+    <!-- application buttons -->
+    <style name="PinkButton" parent= "Base.Widget.AppCompat.Button">
+        <item name = "android:textColor">@color/White</item>
+        <item name = "android:backgroundTint">@color/Pink</item>
+    </style>
+
+    <style name= "BlueButton" parent= "Base.Widget.AppCompat.Button">
+        <item name = "android:textColor">@color/White</item>
+        <item name = "android:backgroundTint">@color/Blue</item>
+    </style>
+
+    <style name= "YellowButton" parent= "Base.Widget.AppCompat.Button">
+        <item name = "android:textColor">@color/White</item>
+        <item name = "android:backgroundTint">@color/Yellow</item>
+    </style>
+
+    <style name= "GreenButton" parent= "Base.Widget.AppCompat.Button">
+        <item name = "android:textColor">@color/White</item>
+        <item name = "android:backgroundTint">@color/Green</item>
+    </style>
+
+    <style name= "RedButton" parent= "Base.Widget.AppCompat.Button">
+        <item name = "android:textColor">@color/White</item>
+        <item name = "android:backgroundTint">@color/Red</item>
     </style>
 
 </resources>
