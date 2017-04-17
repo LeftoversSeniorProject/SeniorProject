@@ -445,9 +445,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     public void checkDistance(){
         Location myLocation = mLastLocation;
-        Toast.makeText(this, Double.toString(getDistance(
-                myLocation.getLatitude(), myLocation.getLongitude(), hider.getLatitude(),
-                hider.getLongitude())), Toast.LENGTH_SHORT).show();
         if(getDistance(myLocation.getLatitude(), myLocation.getLongitude(), hider.getLatitude(),
                 hider.getLongitude()) <= WIN_DISTANCE){
             Toast.makeText(this, "YOU WIN!", Toast.LENGTH_LONG).show();
