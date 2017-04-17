@@ -56,6 +56,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
+    Marker hiderLocationMarker;
+    MarkerOptions markerOptions2;
     LocationRequest mLocationRequest;
 
 
@@ -246,11 +248,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title("Current Position");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        mCurrLocationMarker = mMap.addMarker(markerOptions);
 
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -354,11 +351,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Toast.makeText(MapsActivity.this,"Hider does not exist",Toast.LENGTH_SHORT).show();
                     endGame();
                 }
-                MarkerOptions hiderMarker = new MarkerOptions();
-                LatLng hiderLocation = new LatLng(hider.getLatitude(), hider.getLongitude());
-                hiderMarker.position(hiderLocation);
-                hiderMarker.title("Opponent");
-                mMap.addMarker(hiderMarker);
+                //make old location marker blue
+                if(hiderLocationMarker != null){
+                    hiderLocationMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                }
+                   //set new location marker in red
+                    MarkerOptions markerOptions2 = new MarkerOptions();
+                    LatLng hiderLocation = new LatLng(hider.getLatitude(), hider.getLongitude());
+                    markerOptions2.position(hiderLocation);
+                    markerOptions2.title("Opponent");
+                    markerOptions2.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                    hiderLocationMarker = mMap.addMarker(markerOptions2);
+
             }
         }, 3000);
 
