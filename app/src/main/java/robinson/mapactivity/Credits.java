@@ -5,33 +5,33 @@ package robinson.mapactivity;
  */
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Button;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.view.View;
-import android.widget.Toast;
+public class Credits extends AppCompatActivity implements View.OnClickListener {
 
-
-import static robinson.mapactivity.R.layout.activity_maps;
-
-
-public class Credits extends MapsActivity implements View.OnClickListener {
+    private Button btnClose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.credits);
+        btnClose = (Button) findViewById(R.id.close_button);
+        btnClose.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+
+            case R.id.close_button:
+                startActivity(new Intent(getApplicationContext(), TitleActivity.class));
+                break;
+        }
+
     }
 }
 

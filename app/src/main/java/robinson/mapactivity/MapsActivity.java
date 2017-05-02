@@ -1,8 +1,7 @@
 package robinson.mapactivity;
 
-import android.content.Intent;
-
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
@@ -15,6 +14,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -46,10 +46,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //declare button variables
     private Button btnEndGame;
     private Button btnMarco;
-
-  
     private Button btnTag;
-    private Button btnStart;
+    private TextView txtID;
+
 
 
     //Google declarations
@@ -57,6 +56,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
+    Marker hiderLocationMarker;
+    MarkerOptions markerOptions2;
     LocationRequest mLocationRequest;
 
 
@@ -70,8 +71,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private boolean seeker = false;
     Gson GSON = new GsonBuilder().create();
     private User hider;
-    private String hiderID;
     public static final String API_URL = "http://73.160.165.2:4567";
+    private static final int WIN_DISTANCE = 10;
 
 
 
@@ -91,14 +92,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Bundle bundleID = getIntent().getExtras();
         Intent intent = getIntent();
         String hiderID = intent.getStringExtra("hider_id");
-        if(hiderID != null)
+        if(!hiderID.equals(""))
         {
             hider.setId(hiderID);
+            seeker = true;
         }
-        Toast.makeText(this,hiderID,Toast.LENGTH_SHORT).show();
-
-
-
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
@@ -110,37 +108,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         //Test line
 
-        //set Hider
-         hiderID = null;
-         hider = new User(hiderID, 0.00, 0.00);
-
 
         //set Button Listeners
         btnMarco = (Button) findViewById(R.id.marco_button);
         btnMarco.setOnClickListener(this);
-
-        //btnEndGame = (Button) findViewById(R.id.end_game_button);
-        //btnEndGame.setOnClickListener(this);
-
-        btnStart = (Button) findViewById(R.id.start_button);
-        btnStart.setOnClickListener(this);
-
-        Toast.makeText(this,"Set Button Listeners",Toast.LENGTH_SHORT).show();
-
-   // }
-
         btnTag = (Button) findViewById(R.id.tag_button);
         btnTag.setOnClickListener(this);
         btnEndGame = (Button) findViewById(R.id.end_game_button);
         btnEndGame.setOnClickListener(this);
+        txtID=(TextView) findViewById(R.id.idText);
 
 
 
-        //Remove buttons if hider
+        //Remove buttons if hider and ID field if seeker
         if(!isSeeker()){
             btnMarco.setVisibility(View.GONE);
             btnTag.setVisibility(View.GONE);
-            btnEndGame.setVisibility(View.GONE);
+        }
+        else{
+            txtID.setVisibility(View.GONE);
         }
 
 
@@ -162,8 +148,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
-        Toast.makeText(this,"setMapType",Toast.LENGTH_SHORT).show();
-
 
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -171,7 +155,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 buildGoogleApiClient();
-                Toast.makeText(this,"buildGoogleApiClient",Toast.LENGTH_SHORT).show();
                 mMap.setMyLocationEnabled(true);
             }
         } else {
@@ -230,18 +213,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
 
             case R.id.end_game_button:
-                //to do write end game code
+               endGame();
                 break;
-
-
-
-            case R.id.start_button:
-                Intent intent = new Intent(MapsActivity.this, TitleActivity.class);
-                //intent.putExtra("latitute", 34.8098080980);
-                // intent.putExtra("longitude", 67.09098898);
-                startActivity(intent);
-                break;
-
         }
 
     }
@@ -258,17 +231,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mLastLocation = location;
 
-          
-
         if (mCurrLocationMarker != null) {
             mCurrLocationMarker.remove();
         }
-        Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
-
-       // , location.getLatitude(), location.getLongitude())),Toast.LENGTH_LONG).show();
-
-
-        //updates hider's location if it has not yet been updated and they are not seeker
+               //updates hider's location if it has not yet been updated and they are not seeker
         if(hider.getId() == null && !isSeeker()){
             postHiderLocation();
         }
@@ -282,16 +248,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title("Current Position");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        mCurrLocationMarker = mMap.addMarker(markerOptions);
 
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(20));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
 
 
     }
@@ -385,40 +346,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void run(){
                 hider = g1.getUser();
-                System.out.println(hider.getLatitude());
-                MarkerOptions hiderMarker = new MarkerOptions();
-                LatLng hiderLocation = new LatLng(hider.getLatitude(), hider.getLongitude());
-                hiderMarker.position(hiderLocation);
-                hiderMarker.title("Opponent");
-                mMap.addMarker(hiderMarker);
+                //check that hider exists in server
+                if(hider.getLatitude() == 0 && hider.getLongitude() == 0){
+                    Toast.makeText(MapsActivity.this,"Hider does not exist",Toast.LENGTH_SHORT).show();
+                    endGame();
+                }
+                //make old location marker blue
+                if(hiderLocationMarker != null){
+                    hiderLocationMarker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                }
+                   //set new location marker in red
+                    MarkerOptions markerOptions2 = new MarkerOptions();
+                    LatLng hiderLocation = new LatLng(hider.getLatitude(), hider.getLongitude());
+                    markerOptions2.position(hiderLocation);
+                    markerOptions2.title("Opponent");
+                    markerOptions2.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                    hiderLocationMarker = mMap.addMarker(markerOptions2);
+
             }
         }, 3000);
-        Toast.makeText(this,"Got hider: " + hider,Toast.LENGTH_SHORT).show();
+
         
     }
-
-
-
-/**
-    //Gets the distance between two points of latitude and longitude
-    //The return value is in meters.
-    public double getDistance(double lat1, double long1, double lat2, double long2){
-        double radius = 6371;//Earth's radius in km
-        double latDiff = toRadians(lat2 - lat1);
-        double longDiff = toRadians(long2 - long1);
-        double a =
-                Math.sin(latDiff/2) * Math.sin(latDiff/2) +
-                Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
-                Math.sin(longDiff/2) * Math.sin(longDiff/2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        return radius * c * 1000;
-    }
-
-    private double toRadians(double degrees){
-        return degrees * (Math.PI/180);
-    }
-**/
-
 
 
     /**
@@ -434,7 +383,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         p1 = new PostTask(hider);
         p1.execute();
 
-
         //Delay for Post
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -443,8 +391,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 hider = p1.getUser();
             }
             }, 3000);
-
-        Toast.makeText(this,"Posted hider: " + hider,Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -463,10 +409,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void run() {
                 hider = p2.getUser();
+                if(txtID.getText().equals("")){
+                    txtID.setText("ID: " + hider.getId());
+                }
             }
         }, 3000);
 
-        Toast.makeText(this,"Put hider: " + hider,Toast.LENGTH_SHORT).show();
+
 
     }
 
@@ -494,17 +443,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return radius * c * 1000;
     }
 
+    /**
+     * Checks distance between user and hider
+     * You win if distance is less than WIN_DISTANCE
+     */
     public void checkDistance(){
         Location myLocation = mLastLocation;
-        Toast.makeText(this, Double.toString(getDistance(
-                myLocation.getLatitude(), myLocation.getLongitude(), hider.getLatitude(),
-                hider.getLongitude())), Toast.LENGTH_LONG).show();
+        if(getDistance(myLocation.getLatitude(), myLocation.getLongitude(), hider.getLatitude(),
+                hider.getLongitude()) <= WIN_DISTANCE){
+            Toast.makeText(this, "YOU WIN!", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(MapsActivity.this, TitleActivity.class);
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(this, "You are not close enough to hider!", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
     private double toRadians(double degrees){
         return degrees * (Math.PI/180);
 
+    }
+
+    /**
+     * Stops game and returns player to title screen
+     */
+    public void endGame(){
+        Intent intent = new Intent(MapsActivity.this, TitleActivity.class);
+        startActivity(intent);
+        //stop location updates
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
 
 }
