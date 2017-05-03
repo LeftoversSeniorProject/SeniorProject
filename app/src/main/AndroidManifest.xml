@@ -53,6 +53,7 @@
         </activity>
         <activity android:name=".JoinActivity"></activity>
         <activity android:name=".Credits"></activity>
+        <activity android:name=".Options"></activity>
 
     </application>
 

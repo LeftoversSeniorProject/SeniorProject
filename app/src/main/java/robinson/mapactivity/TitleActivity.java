@@ -1,25 +1,33 @@
 package robinson.mapactivity;
+/**
+ * Class for Title Interface
+ * @author Chris Curreri
+ */
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-//pushing
+
+
 public class TitleActivity extends AppCompatActivity {
 
+    // Activity Buttons
     private Button btnStartGame;
-    //private Button btnStart;
     private Button btnHelp;
     private Button btnCredits;
 
+    /**
+     * Override onCreate to Draw User Interface
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title);
 
-
-
+        //Start Button
         btnStartGame = (Button) findViewById(R.id.start_game_button);
         btnStartGame.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,6 +37,7 @@ public class TitleActivity extends AppCompatActivity {
             }
         });
 
+        //Help Button
         btnHelp = (Button) findViewById(R.id.help_button);
         btnHelp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,7 +47,7 @@ public class TitleActivity extends AppCompatActivity {
             }
         });
 
-
+        //Credits Button
         btnCredits = (Button) findViewById(R.id.credits_button);
         btnCredits.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +56,5 @@ public class TitleActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 }
